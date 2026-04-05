@@ -1,0 +1,39 @@
+/*
+ * Shadow & Motion Tokens — Qalam Design System
+ * ===============================================
+ * Shadows use OKLCH alpha for perceptually uniform opacity.
+ * Dark mode shadows are deeper for contrast on dark surfaces.
+ * Motion tokens cover duration and easing curves.
+ */
+
+:root {
+  /* --- Shadow scale (light mode) --- */
+  --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.1), 0 1px 2px oklch(0 0 0 / 0.06);
+  --shadow-md: 0 4px 6px oklch(0 0 0 / 0.1), 0 2px 4px oklch(0 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.1), 0 4px 6px oklch(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px oklch(0 0 0 / 0.1), 0 8px 10px oklch(0 0 0 / 0.04);
+
+  /* --- Transition durations --- */
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  /* --- Easing curves --- */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode shadows — deeper for contrast */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.2);
+    --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.3), 0 1px 2px oklch(0 0 0 / 0.2);
+    --shadow-md: 0 4px 6px oklch(0 0 0 / 0.3), 0 2px 4px oklch(0 0 0 / 0.2);
+    --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.3), 0 4px 6px oklch(0 0 0 / 0.2);
+    --shadow-xl: 0 20px 25px oklch(0 0 0 / 0.3), 0 8px 10px oklch(0 0 0 / 0.2);
+  }
+}
