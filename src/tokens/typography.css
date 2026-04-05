@@ -1,0 +1,47 @@
+/*
+ * Typography Tokens — Qalam Design System
+ * ==========================================
+ * Font families: IBM Plex Sans (body), IBM Plex Serif (headings),
+ *                IBM Plex Mono (code), Noto Naskh Arabic (Arabic script)
+ * Type scale: 1.25 ratio modular scale
+ */
+
+:root {
+  /* --- Font families --- */
+  --font-arabic: 'Noto Naskh Arabic', serif;
+  --font-heading: 'IBM Plex Serif', 'Georgia', serif;
+  --font-body: 'IBM Plex Sans', 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* --- Modular type scale (1.25 ratio) --- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* --- Line heights --- */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* --- Font weights --- */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* --- Letter spacing --- */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+
+  /* --- Arabic-specific adjustments --- */
+  --arabic-line-height: 2;
+  --arabic-body-size: 1.125rem;
+  --arabic-heading-size: 1.5rem;
+}

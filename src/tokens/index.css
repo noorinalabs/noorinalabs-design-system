@@ -1,0 +1,11 @@
+/*
+ * Design Tokens — Qalam Design System
+ * ======================================
+ * Barrel import for all token CSS files.
+ * Import this single file to get all design tokens.
+ */
+
+@import './colors.css';
+@import './typography.css';
+@import './spacing.css';
+@import './shadows.css';
