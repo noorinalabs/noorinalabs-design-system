@@ -1,0 +1,270 @@
+/*
+ * Utility Styles — Qalam Design System
+ * =======================================
+ * Text helpers, flex/grid layouts, links, spacing,
+ * status colors, Arabic/RTL text, and scrollbar styling.
+ *
+ * All directional properties use CSS logical properties
+ * for BiDi/RTL support.
+ */
+
+/* ============================================================
+ * TEXT HELPERS
+ * ============================================================ */
+.error-text {
+  color: var(--color-destructive);
+}
+
+.muted-text {
+  color: var(--color-muted-foreground);
+}
+
+.small-muted {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+/* ============================================================
+ * STATUS TEXT COLORS
+ * ============================================================ */
+.text-success {
+  color: var(--color-success);
+}
+
+.text-danger {
+  color: var(--color-destructive);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-active {
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
+}
+
+.text-suspended {
+  color: var(--color-destructive);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ============================================================
+ * FLEX UTILITIES
+ * ============================================================ */
+.flex-row {
+  display: flex;
+  gap: var(--spacing-2);
+  align-items: center;
+}
+
+.flex-row-wrap {
+  display: flex;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+ * GRID LAYOUTS
+ * ============================================================ */
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+/* ============================================================
+ * SECTION SPACING
+ * ============================================================ */
+.section {
+  margin-top: var(--spacing-6);
+}
+
+.section-mb {
+  margin-bottom: var(--spacing-8);
+}
+
+/* ============================================================
+ * PAGE HEADING — Serif heading per Qalam
+ * ============================================================ */
+.page-heading {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-2xl);
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-3);
+  border-bottom: var(--border-width-medium) solid var(--color-primary);
+}
+
+/* ============================================================
+ * ARABIC TEXT & RTL
+ * ============================================================ */
+.text-rtl {
+  direction: rtl;
+  text-align: right;
+  font-family: var(--font-arabic);
+}
+
+.text-arabic-block {
+  direction: rtl;
+  text-align: right;
+  padding: var(--spacing-4);
+  background: var(--color-card);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  line-height: var(--arabic-line-height);
+  font-size: var(--arabic-body-size);
+  font-family: var(--font-arabic);
+}
+
+.text-english-block {
+  padding: var(--spacing-4);
+  background: var(--color-card);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  line-height: var(--leading-relaxed);
+}
+
+/* ============================================================
+ * LINKS
+ * ============================================================ */
+.link-primary {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+.link-primary:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+.link-muted {
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-default);
+}
+
+.link-muted:hover {
+  color: var(--color-primary);
+}
+
+/* ============================================================
+ * CELL TRUNCATION
+ * ============================================================ */
+.cell-truncate {
+  padding: var(--spacing-2);
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+ * SAVE MESSAGES
+ * ============================================================ */
+.save-success {
+  margin-inline-start: var(--spacing-3);
+  color: var(--color-success);
+}
+
+.save-error {
+  margin-inline-start: var(--spacing-3);
+  color: var(--color-destructive);
+}
+
+/* ============================================================
+ * SELECTION STYLING
+ * ============================================================ */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+/* ============================================================
+ * SCROLLBAR — Subtle, Qalam-palette
+ * ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-foreground);
+}
+
+/* ============================================================
+ * ISLAMIC GEOMETRIC ACCENTS — CSS-only decorative borders
+ * Subtle octagonal/diamond motif for section dividers
+ * ============================================================ */
+.geo-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin: var(--spacing-6) 0;
+  color: var(--color-border);
+}
+
+.geo-divider::before,
+.geo-divider::after {
+  content: '';
+  flex: 1;
+  height: var(--border-width-thin);
+  background: var(--color-border);
+}
+
+.geo-divider-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.geo-border-top {
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-primary) 0px,
+    var(--color-primary) 8px,
+    transparent 8px,
+    transparent 12px,
+    var(--color-border) 12px,
+    var(--color-border) 14px,
+    transparent 14px,
+    transparent 18px
+  );
+  border-radius: var(--radius-full) var(--radius-full) 0 0;
+}
+
+.geo-border-bottom {
+  border-bottom: var(--border-width-thick) solid transparent;
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--color-primary) 0px,
+    var(--color-primary) 8px,
+    transparent 8px,
+    transparent 12px,
+    var(--color-border) 12px,
+    var(--color-border) 14px,
+    transparent 14px,
+    transparent 18px
+  ) 4;
+}
