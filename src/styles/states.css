@@ -1,0 +1,127 @@
+/*
+ * State Styles — Qalam Design System
+ * ======================================
+ * Loading states (skeleton variants), empty states,
+ * and error page patterns.
+ *
+ * ## Loading States
+ * Use the `.skeleton` base class (from animations.css) combined
+ * with a variant class to create loading placeholders:
+ *
+ *   <div class="skeleton skeleton-heading"></div>
+ *   <div class="skeleton skeleton-text"></div>
+ *   <div class="skeleton skeleton-text"></div>
+ *   <div class="skeleton skeleton-row"></div>
+ *
+ * Skeleton variants:
+ *   .skeleton-text     — single line of body text (1em tall)
+ *   .skeleton-heading  — heading placeholder (1.5em tall, 40% width)
+ *   .skeleton-row      — table/list row placeholder (2.5rem tall)
+ *
+ * ## Empty States
+ * Centered content area for when no data is available:
+ *
+ *   <div class="empty-state">
+ *     <div class="empty-state-icon"><!-- icon --></div>
+ *     <div class="empty-state-heading">No results found</div>
+ *     <div class="empty-state-body">Try adjusting your filters.</div>
+ *   </div>
+ *
+ * ## Error Pages
+ * Full-page error display for 404, 500, 403, etc:
+ *
+ *   <div class="error-page">
+ *     <div class="error-page-code">404</div>
+ *     <div class="error-page-title">Page not found</div>
+ *     <div class="error-page-body">The page you requested does not exist.</div>
+ *   </div>
+ */
+
+/* ============================================================
+ * SKELETON LOADING VARIANTS
+ * ============================================================ */
+.skeleton-text {
+  height: 1em;
+  margin-bottom: var(--spacing-2);
+}
+
+.skeleton-heading {
+  height: 1.5em;
+  width: 40%;
+  margin-bottom: var(--spacing-3);
+}
+
+.skeleton-row {
+  height: 2.5rem;
+  margin-bottom: var(--spacing-1);
+}
+
+/* ============================================================
+ * EMPTY STATE
+ * ============================================================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-16) var(--spacing-6);
+  text-align: center;
+  color: var(--color-muted-foreground);
+}
+
+.empty-state-icon {
+  margin-bottom: var(--spacing-4);
+  color: var(--color-muted-foreground);
+  opacity: 0.5;
+}
+
+.empty-state-heading {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-lg);
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-2);
+}
+
+.empty-state-body {
+  font-size: var(--text-sm);
+  max-width: 320px;
+  line-height: var(--leading-relaxed);
+}
+
+/* ============================================================
+ * ERROR PAGES (404, 500, 403)
+ * ============================================================ */
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: var(--spacing-8);
+}
+
+.error-page-code {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.error-page-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-3);
+}
+
+.error-page-body {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  max-width: 400px;
+  margin-bottom: var(--spacing-6);
+  line-height: var(--leading-relaxed);
+}

@@ -1,0 +1,13 @@
+/*
+ * Global Styles — Qalam Design System
+ * =======================================
+ * Barrel import for all style modules.
+ * Import this single file to get all global styles.
+ *
+ * Depends on design tokens (../tokens/index.css) being loaded first.
+ */
+
+@import './utilities.css';
+@import './components.css';
+@import './animations.css';
+@import './states.css';

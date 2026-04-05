@@ -1,0 +1,29 @@
+/*
+ * Animations — Qalam Design System
+ * ====================================
+ * Keyframe definitions and animated utility classes.
+ * All animations respect prefers-reduced-motion.
+ */
+
+/* ============================================================
+ * SKELETON SHIMMER — parchment-style opacity pulse
+ * Per asset-specifications.md: subtle opacity pulse
+ * ============================================================ */
+@keyframes skeleton-shimmer {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.skeleton {
+  background: var(--color-muted);
+  border-radius: var(--radius-md);
+  animation: skeleton-shimmer var(--duration-slower) ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    opacity: 0.7;
+  }
+}
