@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**noorinalabs-design-system** is the shared design system for all NoorinALabs frontends. It provides design tokens, UI components, icons, and brand assets that ensure visual consistency across the organization's products (isnad-graph frontend, landing page, and future projects).
+**noorinalabs-design-system** is the shared design system for all Noorina Labs frontends. It provides design tokens, UI components, icons, and brand assets that ensure visual consistency across the organization's products (isnad-graph frontend, landing page, and future projects).
 
 ## Tech Stack
 
