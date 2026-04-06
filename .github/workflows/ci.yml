@@ -35,4 +35,7 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm run test || true
+        run: npm run test
+
+      - name: Test with coverage
+        run: npx vitest run --coverage
