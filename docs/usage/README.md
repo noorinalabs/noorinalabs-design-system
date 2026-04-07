@@ -94,6 +94,12 @@ All components use CSS logical properties (`ps-`, `pe-`, `start`, `end`) instead
 
 No additional configuration is needed — components adapt automatically.
 
+## Storybook
+
+Browse the live component playground at **[noorinalabs.github.io/noorinalabs-design-system](https://noorinalabs.github.io/noorinalabs-design-system/)**.
+
+Storybook is deployed automatically on every push to `main`.
+
 ## Further Reading
 
 - [Component API Reference](./components.md)
