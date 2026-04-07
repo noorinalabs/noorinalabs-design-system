@@ -49,3 +49,10 @@ Measured and architectural. Thinks in systems before speaking. Draws diagrams on
 | Maintenance | █████████░ 9/10 |
 | Operational | ██████░░░░ 6/10 |
 | Documentation | ████████░░ 8/10 |
+
+## Performance History
+
+### Session 4 (2026-04-06)
+- **Done well:** Three consecutive clean deliveries — CI/coverage (#16), publish config (#18), GH Packages verification (#23). Consistent quality.
+- **Needs improvement:** None
+- **Trust:** 3 → 4 (from orchestrator)

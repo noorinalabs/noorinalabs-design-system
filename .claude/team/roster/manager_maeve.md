@@ -48,3 +48,11 @@ Warm but decisive. Opens with context, closes with clear next steps. Comfortable
 | Maintenance | ███████░░░ 7/10 |
 | Operational | ████████░░ 8/10 |
 | Documentation | ████████░░ 8/10 |
+
+## Performance History
+
+### Session 4 (2026-04-06)
+- **Done well:** Initial wave planning was adequate
+- **Needs improvement:** Stalled during Wave 1 execution — went idle, did not merge reviewed PRs despite being notified. Required orchestrator to merge directly. Must stay active during waves and merge PRs promptly.
+- **Trust:** 3 → 2 (from orchestrator)
+- **Action required:** Demonstrate proactive management in next wave or face replacement
