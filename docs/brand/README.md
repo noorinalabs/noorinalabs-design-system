@@ -1,6 +1,6 @@
 # Qalam Brand Guide
 
-The definitive brand guide for the **Qalam** design system used across all NoorinALabs products.
+The definitive brand guide for the **Qalam** design system used across all Noorina Labs products.
 
 Qalam (Arabic: *qalam*, "pen") is rooted in the tradition of Islamic manuscript scholarship. The name references the instrument of hadith transmission itself. The design system treats each product as a digital extension of the scholarly desk: measured, precise, built for long reading sessions and careful analysis.
 

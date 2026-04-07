@@ -1,6 +1,6 @@
 # Getting Started with @noorinalabs/design-system
 
-The Qalam Design System provides design tokens, React components, icons, and global styles for all NoorinALabs frontends.
+The Qalam Design System provides design tokens, React components, icons, and global styles for all Noorina Labs frontends.
 
 ## Installation
 

@@ -1,6 +1,6 @@
 # Token Reference
 
-Design tokens are the foundational values (colors, typography, spacing, shadows, etc.) that ensure visual consistency across all NoorinALabs products. They are available as both **CSS custom properties** and **TypeScript constants**.
+Design tokens are the foundational values (colors, typography, spacing, shadows, etc.) that ensure visual consistency across all Noorina Labs products. They are available as both **CSS custom properties** and **TypeScript constants**.
 
 ## Importing Tokens
 
