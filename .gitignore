@@ -43,6 +43,13 @@ coverage/
 .turbo/
 .eslintcache
 
+# Playwright
+playwright-report/
+test-results/
+
+# Storybook cache
+.storybook/cache/
+
 # Temporary files
 tmp/
 temp/
