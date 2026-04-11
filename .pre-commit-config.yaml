@@ -1,0 +1,54 @@
+# Pre-commit hooks for noorinalabs-design-system
+# Install: pre-commit install
+# Docs: https://pre-commit.com/
+#
+# Hook execution order (fail-fast, cheapest first):
+#   1. ESLint
+#   2. TypeScript type check
+#   3. Unit tests
+#   4. Build + package validation
+#   5. gitleaks (secret detection)
+#
+# Prerequisites:
+#   - Node.js 20+ with npm
+
+repos:
+  # --- Secret detection ---
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.3
+    hooks:
+      - id: gitleaks
+        name: gitleaks
+
+  # --- Local hooks ---
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: bash -c 'npm run lint'
+        language: system
+        pass_filenames: false
+        types_or: [ts, tsx, javascript]
+        stages: [pre-commit]
+
+      - id: typecheck
+        name: typecheck
+        entry: bash -c 'npm run typecheck'
+        language: system
+        pass_filenames: false
+        types_or: [ts, tsx]
+        stages: [pre-commit]
+
+      - id: test
+        name: test
+        entry: bash -c 'npm run test'
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: build-and-validate
+        name: build-and-validate
+        entry: bash -c 'npm run build && npm pack --dry-run 2>&1 | grep -q "dist/styles.css" && npm pack --dry-run 2>&1 | grep -q "dist/index.js"'
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
