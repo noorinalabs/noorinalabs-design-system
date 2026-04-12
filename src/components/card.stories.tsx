@@ -48,6 +48,25 @@ export const HeaderOnly: Story = {
   ),
 }
 
+export const RTL: Story = {
+  render: () => (
+    <div dir="rtl">
+      <Card style={{ maxWidth: 400 }}>
+        <CardHeader>
+          <CardTitle>عنوان البطاقة</CardTitle>
+          <CardDescription>وصف البطاقة هنا.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>محتوى البطاقة مع معلومات تفصيلية.</p>
+        </CardContent>
+        <CardFooter>
+          <Button>إجراء</Button>
+        </CardFooter>
+      </Card>
+    </div>
+  ),
+}
+
 export const DarkMode: Story = {
   render: () => (
     <div className="dark" style={{ background: '#1a1a2e', padding: 24, borderRadius: 8 }}>

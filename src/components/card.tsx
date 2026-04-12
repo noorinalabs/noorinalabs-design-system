@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes } from "react"
+import { forwardRef, type ElementType, type HTMLAttributes } from "react"
 import { cn } from "../utils/cn"
 
 const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
@@ -23,9 +23,13 @@ const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 )
 CardHeader.displayName = "CardHeader"
 
-const CardTitle = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
+interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  as?: ElementType
+}
+
+const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
+  ({ className, as: Comp = "h3", ...props }, ref) => (
+    <Comp
       ref={ref}
       className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
       {...props}
@@ -34,9 +38,9 @@ const CardTitle = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 )
 CardTitle.displayName = "CardTitle"
 
-const CardDescription = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    <div
+    <p
       ref={ref}
       className={cn("text-sm text-muted-foreground", className)}
       {...props}
