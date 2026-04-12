@@ -47,6 +47,28 @@ export const RTL: Story = {
   ),
 }
 
+export const FocusManagement: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 300 }}>
+      <label>
+        Name
+        <Input placeholder="Enter name" />
+      </label>
+      <label>
+        Email
+        <Input type="email" placeholder="Enter email" />
+      </label>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const { within, userEvent } = await import('@storybook/test')
+    const canvas = within(canvasElement)
+    const nameInput = canvas.getByPlaceholderText('Enter name')
+    await userEvent.click(nameInput)
+    await userEvent.tab()
+  },
+}
+
 export const DarkMode: Story = {
   render: () => (
     <div className="dark" style={{ background: '#1a1a2e', padding: 24, borderRadius: 8 }}>

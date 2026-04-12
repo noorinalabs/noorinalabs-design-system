@@ -83,6 +83,38 @@ export const AllVariants: Story = {
   ),
 }
 
+export const RTL: Story = {
+  render: () => (
+    <div dir="rtl">
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+        <Button variant="default">زر افتراضي</Button>
+        <Button variant="destructive">حذف</Button>
+        <Button variant="outline">حدود</Button>
+        <Button variant="secondary">ثانوي</Button>
+      </div>
+    </div>
+  ),
+}
+
+export const KeyboardNavigation: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 12 }}>
+      <Button>First</Button>
+      <Button>Second</Button>
+      <Button disabled>Disabled</Button>
+      <Button>Fourth</Button>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const { within, userEvent } = await import('@storybook/test')
+    const canvas = within(canvasElement)
+    const firstButton = canvas.getByText('First')
+    await userEvent.click(firstButton)
+    await userEvent.tab()
+    await userEvent.tab()
+  },
+}
+
 export const DarkMode: Story = {
   render: () => (
     <div className="dark" style={{ background: '#1a1a2e', padding: 24, borderRadius: 8 }}>
