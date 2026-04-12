@@ -41,6 +41,14 @@ export const colors = {
   input: 'oklch(0.85 0.01 85)',
   ring: 'oklch(0.55 0.14 45)',
 
+  // Brand: landing page palette
+  brandNavy: 'oklch(0.25 0.05 265)',
+  brandNavyLight: 'oklch(0.40 0.06 265)',
+  brandNavyDark: 'oklch(0.15 0.04 265)',
+  brandGold: 'oklch(0.75 0.12 80)',
+  brandGoldLight: 'oklch(0.85 0.08 80)',
+  brandGoldDark: 'oklch(0.60 0.12 80)',
+
   // Domain: hadith grading
   sahih: 'oklch(0.55 0.10 175)',
   sahihBg: 'oklch(0.93 0.03 175)',
@@ -59,10 +67,15 @@ export const colors = {
 
   // Domain: narrator reliability tiers
   tierThiqah: 'oklch(0.55 0.10 175)',
+  tierThiqahBg: 'oklch(0.93 0.03 175)',
   tierSaduq: 'oklch(0.60 0.10 45)',
+  tierSaduqBg: 'oklch(0.93 0.03 45)',
   tierDaifNarrator: 'oklch(0.65 0.14 75)',
+  tierDaifNarratorBg: 'oklch(0.95 0.04 75)',
   tierMatruk: 'oklch(0.60 0.18 30)',
+  tierMatrukBg: 'oklch(0.95 0.03 30)',
   tierKadhdhab: 'oklch(0.50 0.15 15)',
+  tierKadhdhabBg: 'oklch(0.94 0.03 15)',
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -120,10 +133,15 @@ export const colorsDark = {
 
   // Domain: narrator reliability tiers
   tierThiqah: 'oklch(0.65 0.10 175)',
+  tierThiqahBg: 'oklch(0.25 0.03 175)',
   tierSaduq: 'oklch(0.70 0.10 45)',
+  tierSaduqBg: 'oklch(0.25 0.03 45)',
   tierDaifNarrator: 'oklch(0.75 0.12 75)',
+  tierDaifNarratorBg: 'oklch(0.28 0.04 75)',
   tierMatruk: 'oklch(0.70 0.16 30)',
+  tierMatrukBg: 'oklch(0.25 0.03 30)',
   tierKadhdhab: 'oklch(0.60 0.14 15)',
+  tierKadhdhabBg: 'oklch(0.24 0.03 15)',
 } as const;
 
 // ---------------------------------------------------------------------------
