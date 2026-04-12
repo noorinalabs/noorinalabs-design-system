@@ -18,6 +18,9 @@ const badgeVariants = cva(
         sunni: "border-transparent bg-sunni-bg text-sunni",
         shia: "border-transparent bg-shia-bg text-shia",
         sahih: "border-transparent bg-sahih-bg text-sahih",
+        hasan: "border-transparent bg-hasan-bg text-hasan",
+        daif: "border-transparent bg-daif-bg text-daif",
+        mawdu: "border-transparent bg-mawdu-bg text-mawdu",
       },
     },
     defaultVariants: {

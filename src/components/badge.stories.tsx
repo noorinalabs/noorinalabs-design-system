@@ -7,7 +7,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'secondary', 'destructive', 'outline', 'sunni', 'shia', 'sahih'],
+      options: ['default', 'secondary', 'destructive', 'outline', 'sunni', 'shia', 'sahih', 'hasan', 'daif', 'mawdu'],
     },
   },
   args: {
@@ -45,6 +45,18 @@ export const Sahih: Story = {
   args: { variant: 'sahih', children: 'Sahih' },
 }
 
+export const Hasan: Story = {
+  args: { variant: 'hasan', children: 'Hasan' },
+}
+
+export const Daif: Story = {
+  args: { variant: 'daif', children: 'Da\'if' },
+}
+
+export const Mawdu: Story = {
+  args: { variant: 'mawdu', children: 'Mawdu\'' },
+}
+
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -55,6 +67,25 @@ export const AllVariants: Story = {
       <Badge variant="sunni">Sunni</Badge>
       <Badge variant="shia">Shia</Badge>
       <Badge variant="sahih">Sahih</Badge>
+      <Badge variant="hasan">Hasan</Badge>
+      <Badge variant="daif">Da'if</Badge>
+      <Badge variant="mawdu">Mawdu'</Badge>
+    </div>
+  ),
+}
+
+export const RTL: Story = {
+  render: () => (
+    <div dir="rtl">
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        <Badge variant="default">افتراضي</Badge>
+        <Badge variant="sahih">صحيح</Badge>
+        <Badge variant="hasan">حسن</Badge>
+        <Badge variant="daif">ضعيف</Badge>
+        <Badge variant="mawdu">موضوع</Badge>
+        <Badge variant="sunni">سني</Badge>
+        <Badge variant="shia">شيعي</Badge>
+      </div>
     </div>
   ),
 }
@@ -70,6 +101,9 @@ export const DarkMode: Story = {
         <Badge variant="sunni">Sunni</Badge>
         <Badge variant="shia">Shia</Badge>
         <Badge variant="sahih">Sahih</Badge>
+        <Badge variant="hasan">Hasan</Badge>
+        <Badge variant="daif">Da'if</Badge>
+        <Badge variant="mawdu">Mawdu'</Badge>
       </div>
     </div>
   ),
