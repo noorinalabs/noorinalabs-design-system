@@ -30,6 +30,13 @@ jobs:
 
   deploy:
     needs: build
+    # Disabled until GitHub Pages is configured for this repo. The deploy
+    # step has been failing on every main push with `404 Failed to create
+    # deployment... Ensure GitHub Pages has been enabled` because Pages
+    # was never turned on. Enabling it is a publishing decision (Storybook
+    # would become public on github.io) and is owned by the project lead,
+    # not a CI hygiene fix. See follow-up issue for tracking.
+    if: false
     runs-on: ubuntu-latest
     environment:
       name: github-pages
