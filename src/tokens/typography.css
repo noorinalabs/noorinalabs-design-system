@@ -10,7 +10,7 @@
   /* --- Font families --- */
   --font-arabic: 'Noto Naskh Arabic', serif;
   --font-heading: 'IBM Plex Serif', 'Georgia', serif;
-  --font-body: 'IBM Plex Sans', 'Inter', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
   /* --- Modular type scale (1.25 ratio) --- */
