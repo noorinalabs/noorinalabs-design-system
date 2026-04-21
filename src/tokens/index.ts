@@ -151,7 +151,7 @@ export const colorsDark = {
 export const fontFamily = {
   arabic: "'Noto Naskh Arabic', serif",
   heading: "'IBM Plex Serif', 'Georgia', serif",
-  body: "'IBM Plex Sans', 'Inter', system-ui, sans-serif",
+  body: "'IBM Plex Sans', system-ui, sans-serif",
   mono: "'IBM Plex Mono', ui-monospace, monospace",
 } as const;
 
