@@ -50,3 +50,5 @@ test-results/
 # Temporary files
 tmp/
 temp/
+
+.claude/.librarian-consulted/
