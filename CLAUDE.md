@@ -105,4 +105,4 @@ Copy `.env.example` to `.env` if needed. This package has minimal environment co
 - **GitHub Issues** — story/task/bug tracking (created by Manager, assigned to team members)
 - **GitHub Actions** — CI/CD pipelines, automated tests, linting, deployment
 - These three (Projects, Issues, Actions) are the **core orchestration layer** — do not introduce alternative tools for these concerns
-- **Branching strategy:** Feature branches named `{FirstInitial}.{LastName}\{IIII}-{issue-name}` (e.g., `F.Okonkwo\0042-setup-storybook`) merged to `main` via PR
+- **Branching strategy:** Feature branches named `{FirstInitial}.{LastName}/{IIII}-{issue-name}` (e.g., `F.Okonkwo/0042-setup-storybook`) merged to `main` via PR
