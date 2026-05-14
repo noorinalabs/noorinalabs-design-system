@@ -16,6 +16,12 @@ export { GraphExplorerIcon } from './graph-explorer-icon'
 export { AdminIcon } from './admin-icon'
 export { SignOutIcon } from './sign-out-icon'
 
+// Utility / interaction icons (used internally by components, also exported for consumers)
+export { CloseIcon } from './close-icon'
+export { CheckIcon } from './check-icon'
+export { RadioDotIcon } from './radio-dot-icon'
+export { ChevronRightIcon } from './chevron-right-icon'
+
 // Empty state illustrations
 export { NoResultsIllustration } from './no-results-illustration'
 export { EmptyGraphIllustration } from './empty-graph-illustration'
