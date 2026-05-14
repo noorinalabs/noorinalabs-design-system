@@ -5,7 +5,7 @@ import { IconBase } from './icon-base'
 export function RadioDotIcon(props: IconProps) {
   return (
     <IconBase {...props}>
-      <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="12" fill="currentColor" stroke="none" />
     </IconBase>
   )
 }
