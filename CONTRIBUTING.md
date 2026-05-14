@@ -27,10 +27,28 @@ PRs that touch only the following do NOT require a version bump:
 `@noorinalabs/design-system` publishes to the GitHub Packages npm registry via `.github/workflows/publish.yml`. The workflow fires on:
 
 1. **Push to `main`** — auto-publishes whatever version is in `package.json`. If the version already exists on the registry, the publish step is skipped (no failure). This means a merge to `main` without a version bump is a no-op publish, by design.
-2. **Tag push matching `v*`** (e.g., `git tag v0.0.4 && git push --tags`) — same publish path, marked semantically as a release.
-3. **Release published** — kept for backward compatibility with the original tag-and-release flow.
+2. **Push to `deployments/**`** (wave branches) — publishes wave pre-releases for cross-repo consumers. See "Wave-branch pre-releases" below.
+3. **Tag push matching `v*`** (e.g., `git tag v0.0.4 && git push --tags`) — same publish path, marked semantically as a release.
+4. **Release published** — kept for backward compatibility with the original tag-and-release flow.
 
 For most PRs the push-to-main trigger is sufficient. Use tagged releases for milestones that consumers should pin against.
+
+### Wave-branch pre-releases
+
+Cross-repo wave work (Phase 3 wave-10 and forward) sometimes needs consumers in sibling repos to depend on an unreleased design-system change before the wave branch merges to `main`. To support that, wave branches under `deployments/**` are allowed to publish **pre-release** semver versions to GitHub Packages.
+
+**Pre-release version format:** `<X.Y.Z>-wave<N>.<patch>` where:
+
+- `<X.Y.Z>` is the SemVer base — the version that will become canonical once this wave merges to `main`.
+- `<N>` is the wave number (e.g., `10` for `deployments/phase-3/wave-10`).
+- `<patch>` increments per re-cut on the same wave branch, starting at `0` (e.g., `0.0.3-wave10.0`, `0.0.3-wave10.1` if a follow-up fix is required mid-wave).
+
+**Rules:**
+
+- The main-branch publish remains the **canonical release**. Pre-releases are time-bounded by their wave's lifespan and exist to unblock cross-repo integration during the wave, not to ship to end users.
+- Consumers depending on a wave pre-release MUST pin the exact version (e.g., `"@noorinalabs/design-system": "0.0.3-wave10.0"`) — SemVer range matchers do not auto-include pre-release versions, which is the desired behavior here.
+- When the wave branch merges to `main`, bump the version in the merge to the canonical `<X.Y.Z>` (drop the `-wave<N>.<patch>` suffix) and let the main-branch publish trigger ship the canonical release. Consumers should then move their pin to the canonical version in a follow-up PR.
+- A wave branch may publish multiple `<patch>` increments during its lifespan; each must bump the suffix patch number to avoid registry collision (the `npm view` guard would otherwise skip the re-publish).
 
 ## Consumer migration
 

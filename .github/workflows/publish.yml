@@ -2,7 +2,9 @@ name: Publish to GitHub Packages
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - 'deployments/**'
     tags: ['v*']
   release:
     types: [published]
