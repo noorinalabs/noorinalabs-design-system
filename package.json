@@ -1,6 +1,6 @@
 {
   "name": "@noorinalabs/design-system",
-  "version": "0.0.4",
+  "version": "0.0.4-wave10.0",
   "description": "Shared design system for Noorina Labs — OKLCH tokens, Radix-based React components, domain icons, and Qalam brand assets.",
   "license": "Apache-2.0",
   "author": "Noorina Labs",
