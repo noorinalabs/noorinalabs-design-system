@@ -1,10 +1,11 @@
 import js from '@eslint/js'
+import globals from 'globals'
 import tseslint from 'typescript-eslint'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default tseslint.config(
-  { ignores: ['dist', 'storybook-static', 'node_modules'] },
+  { ignores: ['dist', 'storybook-static', 'node_modules', 'coverage'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -19,5 +20,9 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
+  },
+  {
+    files: ['*.config.{js,ts}', 'scripts/**/*.{js,mjs,cjs,ts}'],
+    languageOptions: { globals: globals.node },
   },
 )
