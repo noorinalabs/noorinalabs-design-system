@@ -7,6 +7,7 @@ import {
   fontWeight,
   lineHeight,
   spacing,
+  container,
   radius,
   zIndex,
   shadow,
@@ -67,6 +68,12 @@ describe('design tokens', () => {
     expect(spacing[0]).toBe('0')
   })
 
+  it('exports container width tokens (Tailwind 4 stock scale)', () => {
+    expect(container.md).toBe('28rem')
+    expect(container['3xs']).toBe('16rem')
+    expect(container['7xl']).toBe('80rem')
+  })
+
   it('exports radius tokens', () => {
     expect(radius.full).toBe('9999px')
     expect(radius.md).toBe('0.375rem')
@@ -98,6 +105,7 @@ describe('design tokens', () => {
     expect(tokens.fontFamily).toBe(fontFamily)
     expect(tokens.fontSize).toBe(fontSize)
     expect(tokens.spacing).toBe(spacing)
+    expect(tokens.container).toBe(container)
     expect(tokens.radius).toBe(radius)
     expect(tokens.shadow).toBe(shadow)
     expect(tokens.duration).toBe(duration)
