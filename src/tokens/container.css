@@ -1,0 +1,26 @@
+/*
+ * Container Tokens — Qalam Design System
+ * ========================================
+ * Tailwind 4's `--container-*` theme namespace drives `max-w-*` / `min-w-*`
+ * utilities. Mirrors Tailwind's stock scale so consumers importing
+ * @noorinalabs/design-system/styles.css resolve `max-w-md` etc. correctly.
+ *
+ * Without this namespace, `max-w-md` falls through to `--spacing-md` (1rem),
+ * producing 16px-wide containers — see issue #82 (latent #889-class bugs).
+ */
+
+@theme {
+  --container-3xs: 16rem;
+  --container-2xs: 18rem;
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+}
