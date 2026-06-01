@@ -162,9 +162,17 @@ jobs:
         # shellcheck is preinstalled on ubuntu-latest, so actionlint's embedded
         # shellcheck integration runs (per the actionlint-needs-shellcheck
         # discipline) rather than silently skipping.
+        #
+        # -ignore: storybook.yml's `deploy` job is intentionally `if: false` —
+        # the GitHub Pages deploy is disabled-by-design until Pages is enabled
+        # (an owner-gated publishing decision, see the job's header comment),
+        # NOT a CI-hygiene defect. actionlint's `if-cond` rule flags the
+        # constant `false`; suppress only that exact message so every other
+        # check (including on this docs.yml) still gates. Re-enabling the deploy
+        # job removes the constant and this ignore becomes a no-op.
         run: |
           bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
+          ./actionlint -color -ignore 'constant expression "false" in condition'
 
   precommit-ci-sync:
     name: Pre-commit ⇄ CI sync-drift gate

@@ -41,11 +41,15 @@ repos:
         stages: [pre-commit]
 
   # --- Workflow lint (commit stage) — mirrors docs.yml actionlint job ---
+  # The -ignore matches docs.yml: storybook.yml's deploy job is intentionally
+  # `if: false` (owner-gated Pages disable, not a defect); suppress only that
+  # exact if-cond message so every other workflow lint still gates locally.
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.12
     hooks:
       - id: actionlint
         name: actionlint
+        args: ["-ignore", "constant expression \"false\" in condition"]
         stages: [pre-commit]
 
   # --- Local hooks ---
