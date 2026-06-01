@@ -1,28 +1,58 @@
 # Pre-commit hooks for noorinalabs-design-system
-# Install: pre-commit install
-# Docs: https://pre-commit.com/
+# Install:  pre-commit install && pre-commit install --hook-type pre-push
+# Docs:     https://pre-commit.com/
 #
-# Hook execution order (fail-fast, cheapest first):
-#   1. ESLint
-#   2. TypeScript type check
-#   3. Unit tests
-#   4. Build + package validation
-#   5. gitleaks (secret detection)
+# This MIRRORS .github/workflows/ci.yml + docs.yml so local commits/pushes fail
+# fast instead of surfacing a lint/type/build/test/actionlint error only after a
+# PR is opened (Phase-3 end-state criterion #6 / #327).
+#
+# Stage split (cheapest first, fail-fast):
+#   pre-commit (fast, every commit) — gitleaks, ESLint, actionlint (workflow
+#     lint). Quick checks that catch the most common defects before a commit is
+#     recorded.
+#   pre-push   (heavier, every push) — TypeScript type check, build, unit tests.
+#     These run the whole compile+test surface, so they're push-time not
+#     commit-time to keep the commit loop snappy while still catching
+#     everything before it leaves the machine.
+#
+# The kind-level mirror (eslint, typescript, build, vitest, gitleaks,
+# actionlint present on both sides) is enforced in CI by
+# `scripts/pre_commit_ci_sync.py` — if a future edit drops a check from one
+# side, that gate (the "Pre-commit <-> CI sync-drift gate" job in docs.yml)
+# fails the build.
+#
+# NOTE: Prettier is intentionally NOT gated yet. The existing src/ corpus is not
+# prettier-clean (a `format:check` over it currently fails), so wiring prettier
+# into CI/pre-commit in this infra-rollout PR would either fail CI or force a
+# large reformat of owned component source. The `format`/`format:check` npm
+# scripts exist for adoption; formatting the corpus then adding the gate is a
+# tracked follow-up (Refs noorinalabs-main#327).
 #
 # Prerequisites:
-#   - Node.js 20+ with npm
+#   - Node.js 20+ with npm (run `npm ci` once so node_modules is present)
 
 repos:
-  # --- Secret detection ---
+  # --- Secret detection (commit stage) ---
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.24.3
     hooks:
       - id: gitleaks
         name: gitleaks
+        stages: [pre-commit]
+
+  # --- Workflow lint (commit stage) — mirrors docs.yml actionlint job ---
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+        name: actionlint
+        stages: [pre-commit]
 
   # --- Local hooks ---
   - repo: local
     hooks:
+      # Commit stage: fast lint (mirror ci.yml Lint). Quick to run, catches the
+      # most common defects pre-commit.
       - id: eslint
         name: eslint
         entry: bash -c 'npm run lint'
@@ -31,24 +61,29 @@ repos:
         types_or: [ts, tsx, javascript]
         stages: [pre-commit]
 
+      # Push stage: heavier compile + build + tests (mirror ci.yml Typecheck,
+      # Build, Test). Run before code leaves the machine, not on every commit,
+      # to keep the commit loop snappy.
       - id: typecheck
-        name: typecheck
+        name: typecheck (pre-push)
         entry: bash -c 'npm run typecheck'
         language: system
         pass_filenames: false
-        types_or: [ts, tsx]
-        stages: [pre-commit]
+        always_run: true
+        stages: [pre-push]
+
+      - id: build
+        name: build (pre-push)
+        entry: bash -c 'npm run build'
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
 
       - id: test
-        name: test
+        name: test (pre-push)
         entry: bash -c 'npm run test'
         language: system
         pass_filenames: false
-        stages: [pre-commit]
-
-      - id: build-and-validate
-        name: build-and-validate
-        entry: bash -c 'npm run build && npm pack --dry-run 2>&1 | grep -q "dist/styles.css" && npm pack --dry-run 2>&1 | grep -q "dist/index.js"'
-        language: system
-        pass_filenames: false
-        stages: [pre-commit]
+        always_run: true
+        stages: [pre-push]
