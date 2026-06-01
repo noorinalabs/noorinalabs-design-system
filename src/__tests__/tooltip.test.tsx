@@ -1,12 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../components/tooltip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../components/tooltip'
 
 afterEach(cleanup)
 
@@ -18,7 +13,7 @@ describe('Tooltip', () => {
           <TooltipTrigger>Hover me</TooltipTrigger>
           <TooltipContent>Tooltip text</TooltipContent>
         </Tooltip>
-      </TooltipProvider>
+      </TooltipProvider>,
     )
     expect(screen.getByText('Hover me')).toBeDefined()
   })
@@ -31,7 +26,7 @@ describe('Tooltip', () => {
           <TooltipTrigger>Hover target</TooltipTrigger>
           <TooltipContent>Tooltip info</TooltipContent>
         </Tooltip>
-      </TooltipProvider>
+      </TooltipProvider>,
     )
 
     await user.hover(screen.getByText('Hover target'))

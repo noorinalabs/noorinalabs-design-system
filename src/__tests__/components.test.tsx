@@ -2,9 +2,25 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from '../components/card'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+  CardFooter,
+} from '../components/card'
 import { Badge } from '../components/badge'
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption, TableFooter } from '../components/table'
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+  TableFooter,
+} from '../components/table'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/tabs'
 
 describe('Button', () => {
@@ -33,7 +49,15 @@ describe('Button', () => {
 
   it('forwards ref', () => {
     let buttonRef: HTMLButtonElement | null = null
-    render(<Button ref={(el) => { buttonRef = el }}>ref test</Button>)
+    render(
+      <Button
+        ref={(el) => {
+          buttonRef = el
+        }}
+      >
+        ref test
+      </Button>,
+    )
     expect(buttonRef).toBeInstanceOf(HTMLButtonElement)
   })
 })
@@ -59,7 +83,7 @@ describe('Card', () => {
           <CardTitle>Test Card</CardTitle>
         </CardHeader>
         <CardContent>Card body</CardContent>
-      </Card>
+      </Card>,
     )
     expect(screen.getByText('Test Card')).toBeDefined()
     expect(screen.getByText('Card body')).toBeDefined()
@@ -92,7 +116,7 @@ describe('Card subcomponents', () => {
         </CardHeader>
         <CardContent>Body</CardContent>
         <CardFooter>Footer content</CardFooter>
-      </Card>
+      </Card>,
     )
     expect(screen.getByText('Description text')).toBeDefined()
     expect(screen.getByText('Footer content')).toBeDefined()
@@ -122,7 +146,7 @@ describe('Table', () => {
             <TableCell>100</TableCell>
           </TableRow>
         </TableFooter>
-      </Table>
+      </Table>,
     )
     expect(screen.getByText('A test table')).toBeDefined()
     expect(screen.getByText('Name')).toBeDefined()
@@ -141,7 +165,7 @@ describe('Tabs', () => {
         </TabsList>
         <TabsContent value="tab1">Content 1</TabsContent>
         <TabsContent value="tab2">Content 2</TabsContent>
-      </Tabs>
+      </Tabs>,
     )
     expect(screen.getByText('Tab 1')).toBeDefined()
     expect(screen.getByText('Tab 2')).toBeDefined()

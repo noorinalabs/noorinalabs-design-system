@@ -4,7 +4,11 @@ import type { IllustrationProps } from './types'
  * Base wrapper for 96x96 empty state illustrations.
  * Uses currentColor for automatic theme adaptation.
  */
-export function IllustrationBase({ size = 96, children, ...props }: IllustrationProps & { children: React.ReactNode }) {
+export function IllustrationBase({
+  size = 96,
+  children,
+  ...props
+}: IllustrationProps & { children: React.ReactNode }) {
   return (
     <svg
       width={size}

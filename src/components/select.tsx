@@ -1,6 +1,6 @@
-import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react"
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { cn } from "../utils/cn"
+import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from 'react'
+import * as SelectPrimitive from '@radix-ui/react-select'
+import { cn } from '../utils/cn'
 
 const Select = SelectPrimitive.Root
 const SelectGroup = SelectPrimitive.Group
@@ -13,11 +13,11 @@ const SelectTrigger = forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-md border border-input",
-      "bg-background ps-3 pe-3 py-2 text-sm",
-      "placeholder:text-muted-foreground",
-      "focus:outline-2 focus:outline-offset-2 focus:outline-ring",
-      "disabled:cursor-not-allowed disabled:opacity-50",
+      'flex h-10 w-full items-center justify-between rounded-md border border-input',
+      'bg-background ps-3 pe-3 py-2 text-sm',
+      'placeholder:text-muted-foreground',
+      'focus:outline-2 focus:outline-offset-2 focus:outline-ring',
+      'disabled:cursor-not-allowed disabled:opacity-50',
       className,
     )}
     {...props}
@@ -47,16 +47,16 @@ SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
 const SelectContent = forwardRef<
   ElementRef<typeof SelectPrimitive.Content>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = "popper", ...props }, ref) => (
+>(({ className, children, position = 'popper', ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md",
-        "border bg-popover text-popover-foreground shadow-md",
-        "data-[state=open]:animate-in data-[state=closed]:animate-out",
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-        position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1",
+        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md',
+        'border bg-popover text-popover-foreground shadow-md',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out',
+        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        position === 'popper' && 'data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1',
         className,
       )}
       position={position}
@@ -64,9 +64,9 @@ const SelectContent = forwardRef<
     >
       <SelectPrimitive.Viewport
         className={cn(
-          "p-1",
-          position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+          'p-1',
+          position === 'popper' &&
+            'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
         )}
       >
         {children}
@@ -83,10 +83,10 @@ const SelectItem = forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-default select-none items-center",
-      "rounded-sm py-1.5 ps-8 pe-2 text-sm outline-none",
-      "focus:bg-accent focus:text-accent-foreground",
-      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      'relative flex w-full cursor-default select-none items-center',
+      'rounded-sm py-1.5 ps-8 pe-2 text-sm outline-none',
+      'focus:bg-accent focus:text-accent-foreground',
+      'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className,
     )}
     {...props}
@@ -120,7 +120,7 @@ const SelectLabel = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("py-1.5 ps-8 pe-2 text-sm font-semibold", className)}
+    className={cn('py-1.5 ps-8 pe-2 text-sm font-semibold', className)}
     {...props}
   />
 ))
@@ -132,7 +132,7 @@ const SelectSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 my-1 h-px bg-muted", className)}
+    className={cn('-mx-1 my-1 h-px bg-muted', className)}
     {...props}
   />
 ))

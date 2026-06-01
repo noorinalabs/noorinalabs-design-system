@@ -11,7 +11,7 @@ import {
 afterEach(() => {
   cleanup()
   // Allow pending React work to flush
-  return new Promise(resolve => setTimeout(resolve, 0))
+  return new Promise((resolve) => setTimeout(resolve, 0))
 })
 
 describe('Toast', () => {
@@ -24,7 +24,7 @@ describe('Toast', () => {
             <ToastDescription>Operation completed</ToastDescription>
           </Toast>
           <ToastViewport />
-        </ToastProvider>
+        </ToastProvider>,
       )
     })
     expect(screen.getByText('Success')).toBeDefined()
@@ -39,7 +39,7 @@ describe('Toast', () => {
             <ToastTitle>Saved</ToastTitle>
           </Toast>
           <ToastViewport />
-        </ToastProvider>
+        </ToastProvider>,
       )
     })
     expect(screen.getByText('Saved')).toBeDefined()
@@ -53,7 +53,7 @@ describe('Toast', () => {
             <ToastTitle>Error Occurred</ToastTitle>
           </Toast>
           <ToastViewport />
-        </ToastProvider>
+        </ToastProvider>,
       )
     })
     expect(screen.getByText('Error Occurred')).toBeDefined()
@@ -67,7 +67,7 @@ describe('Toast', () => {
             <ToastTitle>Warning Alert</ToastTitle>
           </Toast>
           <ToastViewport />
-        </ToastProvider>
+        </ToastProvider>,
       )
     })
     expect(screen.getByText('Warning Alert')).toBeDefined()

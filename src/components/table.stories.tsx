@@ -35,19 +35,25 @@ export const Default: Story = {
           <TableCell>Abu Hurayrah</TableCell>
           <TableCell>1st century AH</TableCell>
           <TableCell>Medina</TableCell>
-          <TableCell><Badge variant="sahih">Sahih</Badge></TableCell>
+          <TableCell>
+            <Badge variant="sahih">Sahih</Badge>
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Ibn Abbas</TableCell>
           <TableCell>1st century AH</TableCell>
           <TableCell>Mecca</TableCell>
-          <TableCell><Badge variant="sahih">Sahih</Badge></TableCell>
+          <TableCell>
+            <Badge variant="sahih">Sahih</Badge>
+          </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Anas ibn Malik</TableCell>
           <TableCell>1st century AH</TableCell>
           <TableCell>Basra</TableCell>
-          <TableCell><Badge variant="default">Thiqah</Badge></TableCell>
+          <TableCell>
+            <Badge variant="default">Thiqah</Badge>
+          </TableCell>
         </TableRow>
       </TableBody>
     </Table>

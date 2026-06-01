@@ -24,7 +24,7 @@ describe('Dialog', () => {
             <DialogDescription>Description</DialogDescription>
           </DialogHeader>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     )
     expect(screen.getByText('Open Dialog')).toBeDefined()
   })
@@ -40,7 +40,7 @@ describe('Dialog', () => {
             <DialogDescription>Dialog description text</DialogDescription>
           </DialogHeader>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     )
 
     await user.click(screen.getByText('Open Test 2'))
@@ -58,7 +58,7 @@ describe('Dialog', () => {
             <DialogTitle>Accessible Dialog</DialogTitle>
           </DialogHeader>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     )
 
     await user.click(screen.getByText('Open Test 3'))
@@ -77,7 +77,7 @@ describe('Dialog', () => {
             <DialogDescription>Close me</DialogDescription>
           </DialogHeader>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     )
 
     await user.click(screen.getByText('Open Test 4'))
@@ -98,7 +98,7 @@ describe('Dialog', () => {
             <DialogDescription>Press escape</DialogDescription>
           </DialogHeader>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     )
 
     await user.click(screen.getByText('Open Test 5'))
@@ -121,7 +121,7 @@ describe('Dialog', () => {
             <button>Save Changes</button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     )
 
     await user.click(screen.getByText('Open Test 6'))
