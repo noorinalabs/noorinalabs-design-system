@@ -26,3 +26,9 @@ export { EmptyState } from './empty-state'
 export { GeometricBorder } from './geometric-border'
 export { OctagonalFrame } from './octagonal-frame'
 export { PageHeaderAccent } from './page-header-accent'
+
+// Utility / interaction icons (used internally by components, also exported for consumers)
+export { CloseIcon } from './close-icon'
+export { CheckIcon } from './check-icon'
+export { RadioDotIcon } from './radio-dot-icon'
+export { ChevronRightIcon } from './chevron-right-icon'

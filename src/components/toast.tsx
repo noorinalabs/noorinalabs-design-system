@@ -1,6 +1,7 @@
 import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from 'react'
 import * as ToastPrimitive from '@radix-ui/react-toast'
 import { cva, type VariantProps } from 'class-variance-authority'
+import { CloseIcon } from '../icons/close-icon'
 import { cn } from '../utils/cn'
 
 const ToastProvider = ToastPrimitive.Provider
@@ -92,21 +93,7 @@ const ToastClose = forwardRef<
     toast-close=""
     {...props}
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
+    <CloseIcon size={16} />
   </ToastPrimitive.Close>
 ))
 ToastClose.displayName = ToastPrimitive.Close.displayName

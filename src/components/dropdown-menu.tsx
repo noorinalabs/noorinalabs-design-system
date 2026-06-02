@@ -1,5 +1,8 @@
 import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from 'react'
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
+import { CheckIcon } from '../icons/check-icon'
+import { ChevronRightIcon } from '../icons/chevron-right-icon'
+import { RadioDotIcon } from '../icons/radio-dot-icon'
 import { cn } from '../utils/cn'
 
 const DropdownMenu = DropdownMenuPrimitive.Root
@@ -67,20 +70,7 @@ const DropdownMenuCheckboxItem = forwardRef<
   >
     <span className="absolute start-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M20 6 9 17l-5-5" />
-        </svg>
+        <CheckIcon size={16} />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}
@@ -105,15 +95,7 @@ const DropdownMenuRadioItem = forwardRef<
   >
     <span className="absolute start-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="8"
-          height="8"
-          viewBox="0 0 8 8"
-          aria-hidden="true"
-        >
-          <circle cx="4" cy="4" r="4" fill="currentColor" />
-        </svg>
+        <RadioDotIcon size={8} />
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}
@@ -161,21 +143,7 @@ const DropdownMenuSubTrigger = forwardRef<
     {...props}
   >
     {children}
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="ms-auto"
-      aria-hidden="true"
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
+    <ChevronRightIcon size={16} className="ms-auto" />
   </DropdownMenuPrimitive.SubTrigger>
 ))
 DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName
