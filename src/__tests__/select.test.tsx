@@ -24,7 +24,7 @@ describe('Select', () => {
         <SelectContent>
           <SelectItem value="a">Option A</SelectItem>
         </SelectContent>
-      </Select>
+      </Select>,
     )
     expect(screen.getByText('Choose option')).toBeDefined()
   })
@@ -38,7 +38,7 @@ describe('Select', () => {
         <SelectContent>
           <SelectItem value="x">X</SelectItem>
         </SelectContent>
-      </Select>
+      </Select>,
     )
     expect(screen.getByRole('combobox')).toBeDefined()
   })
@@ -54,7 +54,7 @@ describe('Select', () => {
           <SelectItem value="one">One</SelectItem>
           <SelectItem value="two">Two</SelectItem>
         </SelectContent>
-      </Select>
+      </Select>,
     )
 
     await user.click(screen.getByRole('combobox'))
@@ -80,7 +80,7 @@ describe('Select', () => {
             <SelectItem value="carrot">Carrot</SelectItem>
           </SelectGroup>
         </SelectContent>
-      </Select>
+      </Select>,
     )
 
     await user.click(screen.getByRole('combobox'))
@@ -100,7 +100,7 @@ describe('Select', () => {
           <SelectItem value="alpha">Alpha</SelectItem>
           <SelectItem value="beta">Beta</SelectItem>
         </SelectContent>
-      </Select>
+      </Select>,
     )
 
     await user.click(screen.getByRole('combobox'))
@@ -117,9 +117,11 @@ describe('Select', () => {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="enabled">Enabled</SelectItem>
-          <SelectItem value="disabled" disabled>Disabled Option</SelectItem>
+          <SelectItem value="disabled" disabled>
+            Disabled Option
+          </SelectItem>
         </SelectContent>
-      </Select>
+      </Select>,
     )
 
     await user.click(screen.getByRole('combobox'))

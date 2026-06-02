@@ -257,14 +257,15 @@
 .geo-border-bottom {
   border-bottom: var(--border-width-thick) solid transparent;
   border-image: repeating-linear-gradient(
-    90deg,
-    var(--color-primary) 0px,
-    var(--color-primary) 8px,
-    transparent 8px,
-    transparent 12px,
-    var(--color-border) 12px,
-    var(--color-border) 14px,
-    transparent 14px,
-    transparent 18px
-  ) 4;
+      90deg,
+      var(--color-primary) 0px,
+      var(--color-primary) 8px,
+      transparent 8px,
+      transparent 12px,
+      var(--color-border) 12px,
+      var(--color-border) 14px,
+      transparent 14px,
+      transparent 18px
+    )
+    4;
 }

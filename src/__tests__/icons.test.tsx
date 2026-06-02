@@ -24,7 +24,7 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase>
         <circle cx="12" cy="12" r="10" />
-      </IconBase>
+      </IconBase>,
     )
     const svg = container.querySelector('svg')
     expect(svg).toBeDefined()
@@ -35,7 +35,7 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase size={24}>
         <circle cx="12" cy="12" r="10" />
-      </IconBase>
+      </IconBase>,
     )
     const svg = container.querySelector('svg')
     expect(svg?.getAttribute('width')).toBe('24')
@@ -113,7 +113,7 @@ describe('IllustrationBase', () => {
     const { container } = render(
       <IllustrationBase>
         <circle cx="50" cy="50" r="40" />
-      </IllustrationBase>
+      </IllustrationBase>,
     )
     const svg = container.querySelector('svg')
     expect(svg).toBeDefined()
@@ -139,7 +139,13 @@ describe('Illustrations', () => {
 
 describe('EmptyState', () => {
   it('renders with title and description', () => {
-    render(<EmptyState illustration={<NoDataIllustration />} title="No items" description="Try a different search" />)
+    render(
+      <EmptyState
+        illustration={<NoDataIllustration />}
+        title="No items"
+        description="Try a different search"
+      />,
+    )
     expect(screen.getByText('No items')).toBeDefined()
     expect(screen.getByText('Try a different search')).toBeDefined()
   })

@@ -20,7 +20,7 @@ describe('DropdownMenu', () => {
         <DropdownMenuContent>
           <DropdownMenuItem>Item 1</DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu>,
     )
     expect(screen.getByText('Menu Trigger')).toBeDefined()
   })
@@ -36,7 +36,7 @@ describe('DropdownMenu', () => {
           <DropdownMenuItem>Edit</DropdownMenuItem>
           <DropdownMenuItem>Delete</DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu>,
     )
 
     await user.click(screen.getByText('Open Actions'))
@@ -53,7 +53,7 @@ describe('DropdownMenu', () => {
         <DropdownMenuContent>
           <DropdownMenuItem>Some Item</DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu>,
     )
 
     await user.click(screen.getByText('Escape Menu'))
@@ -69,7 +69,7 @@ describe('DropdownMenu', () => {
         <DropdownMenuContent>
           <DropdownMenuItem disabled>Cannot click this</DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu>,
     )
 
     await user.click(screen.getByText('Disabled Menu'))
