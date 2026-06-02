@@ -33,7 +33,13 @@ const icons = [
 
 function IconGallery(props: IconProps) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: 24 }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+        gap: 24,
+      }}
+    >
       {icons.map(({ name, Component }) => (
         <div
           key={name}

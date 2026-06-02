@@ -76,7 +76,7 @@ export const colors = {
   tierMatrukBg: 'oklch(0.95 0.03 30)',
   tierKadhdhab: 'oklch(0.50 0.15 15)',
   tierKadhdhabBg: 'oklch(0.94 0.03 15)',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Colors — Dark Mode
@@ -142,7 +142,7 @@ export const colorsDark = {
   tierMatrukBg: 'oklch(0.25 0.03 30)',
   tierKadhdhab: 'oklch(0.60 0.14 15)',
   tierKadhdhabBg: 'oklch(0.24 0.03 15)',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Typography
@@ -153,7 +153,7 @@ export const fontFamily = {
   heading: "'IBM Plex Serif', 'Georgia', serif",
   body: "'IBM Plex Sans', system-ui, sans-serif",
   mono: "'IBM Plex Mono', ui-monospace, monospace",
-} as const;
+} as const
 
 export const fontSize = {
   xs: '0.75rem',
@@ -164,33 +164,33 @@ export const fontSize = {
   '2xl': '1.5rem',
   '3xl': '1.875rem',
   '4xl': '2.25rem',
-} as const;
+} as const
 
 export const fontWeight = {
   normal: 400,
   medium: 500,
   semibold: 600,
   bold: 700,
-} as const;
+} as const
 
 export const lineHeight = {
   tight: 1.25,
   normal: 1.5,
   relaxed: 1.625,
   loose: 2,
-} as const;
+} as const
 
 export const letterSpacing = {
   tight: '-0.025em',
   normal: '0',
   wide: '0.025em',
-} as const;
+} as const
 
 export const arabicTypography = {
   lineHeight: 2,
   bodySize: '1.125rem',
   headingSize: '1.5rem',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Spacing
@@ -214,7 +214,7 @@ export const spacing = {
   16: '4rem',
   20: '5rem',
   24: '6rem',
-} as const;
+} as const
 
 export const spacingSemantic = {
   xs: 'var(--spacing-1)',
@@ -222,7 +222,7 @@ export const spacingSemantic = {
   md: 'var(--spacing-4)',
   lg: 'var(--spacing-6)',
   xl: 'var(--spacing-8)',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Container widths (Tailwind 4 stock scale — drives max-w-* / min-w-*)
@@ -242,7 +242,7 @@ export const container = {
   '5xl': '64rem',
   '6xl': '72rem',
   '7xl': '80rem',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Radii
@@ -255,7 +255,7 @@ export const radius = {
   xl: '0.75rem',
   '2xl': '1rem',
   full: '9999px',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Z-Index
@@ -270,7 +270,7 @@ export const zIndex = {
   popover: 500,
   toast: 600,
   tooltip: 700,
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Shadows
@@ -282,7 +282,7 @@ export const shadow = {
   md: '0 4px 6px oklch(0 0 0 / 0.1), 0 2px 4px oklch(0 0 0 / 0.06)',
   lg: '0 10px 15px oklch(0 0 0 / 0.1), 0 4px 6px oklch(0 0 0 / 0.05)',
   xl: '0 20px 25px oklch(0 0 0 / 0.1), 0 8px 10px oklch(0 0 0 / 0.04)',
-} as const;
+} as const
 
 export const shadowDark = {
   xs: '0 1px 2px oklch(0 0 0 / 0.2)',
@@ -290,7 +290,7 @@ export const shadowDark = {
   md: '0 4px 6px oklch(0 0 0 / 0.3), 0 2px 4px oklch(0 0 0 / 0.2)',
   lg: '0 10px 15px oklch(0 0 0 / 0.3), 0 4px 6px oklch(0 0 0 / 0.2)',
   xl: '0 20px 25px oklch(0 0 0 / 0.3), 0 8px 10px oklch(0 0 0 / 0.2)',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Motion / Transitions
@@ -301,14 +301,14 @@ export const duration = {
   normal: '200ms',
   slow: '300ms',
   slower: '500ms',
-} as const;
+} as const
 
 export const easing = {
   default: 'cubic-bezier(0.4, 0, 0.2, 1)',
   in: 'cubic-bezier(0.4, 0, 1, 1)',
   out: 'cubic-bezier(0, 0, 0.2, 1)',
   inOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Borders
@@ -318,7 +318,7 @@ export const borderWidth = {
   thin: '1px',
   medium: '2px',
   thick: '4px',
-} as const;
+} as const
 
 // ---------------------------------------------------------------------------
 // Aggregate export
@@ -343,4 +343,4 @@ export const tokens = {
   duration,
   easing,
   borderWidth,
-} as const;
+} as const

@@ -7,7 +7,18 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'secondary', 'destructive', 'outline', 'sunni', 'shia', 'sahih', 'hasan', 'daif', 'mawdu'],
+      options: [
+        'default',
+        'secondary',
+        'destructive',
+        'outline',
+        'sunni',
+        'shia',
+        'sahih',
+        'hasan',
+        'daif',
+        'mawdu',
+      ],
     },
   },
   args: {
@@ -50,11 +61,11 @@ export const Hasan: Story = {
 }
 
 export const Daif: Story = {
-  args: { variant: 'daif', children: 'Da\'if' },
+  args: { variant: 'daif', children: "Da'if" },
 }
 
 export const Mawdu: Story = {
-  args: { variant: 'mawdu', children: 'Mawdu\'' },
+  args: { variant: 'mawdu', children: "Mawdu'" },
 }
 
 export const AllVariants: Story = {

@@ -7,26 +7,25 @@
 # PR is opened (Phase-3 end-state criterion #6 / #327).
 #
 # Stage split (cheapest first, fail-fast):
-#   pre-commit (fast, every commit) — gitleaks, ESLint, actionlint (workflow
-#     lint). Quick checks that catch the most common defects before a commit is
-#     recorded.
+#   pre-commit (fast, every commit) — gitleaks, prettier (format:check),
+#     ESLint, actionlint (workflow lint). Quick checks that catch the most
+#     common defects before a commit is recorded.
 #   pre-push   (heavier, every push) — TypeScript type check, build, unit tests.
 #     These run the whole compile+test surface, so they're push-time not
 #     commit-time to keep the commit loop snappy while still catching
 #     everything before it leaves the machine.
 #
-# The kind-level mirror (eslint, typescript, build, vitest, gitleaks,
+# The kind-level mirror (prettier, eslint, typescript, build, vitest, gitleaks,
 # actionlint present on both sides) is enforced in CI by
 # `scripts/pre_commit_ci_sync.py` — if a future edit drops a check from one
 # side, that gate (the "Pre-commit <-> CI sync-drift gate" job in docs.yml)
 # fails the build.
 #
-# NOTE: Prettier is intentionally NOT gated yet. The existing src/ corpus is not
-# prettier-clean (a `format:check` over it currently fails), so wiring prettier
-# into CI/pre-commit in this infra-rollout PR would either fail CI or force a
-# large reformat of owned component source. The `format`/`format:check` npm
-# scripts exist for adoption; formatting the corpus then adding the gate is a
-# tracked follow-up (Refs noorinalabs-main#327).
+# Prettier IS gated as of #91: the src/ + scripts/ corpus was reformatted in a
+# dedicated commit, then `format:check` was added to ci.yml's `ci` job and
+# mirrored here as the `prettier` commit-stage hook. (PR #90 / Refs
+# noorinalabs-main#327 shipped the `format`/`format:check` npm scripts but
+# deferred the gate until the corpus was clean.)
 #
 # Prerequisites:
 #   - Node.js 20+ with npm (run `npm ci` once so node_modules is present)
@@ -55,6 +54,17 @@ repos:
   # --- Local hooks ---
   - repo: local
     hooks:
+      # Commit stage: prettier format check (mirror ci.yml Format check). Fast,
+      # so it runs at commit time alongside eslint. Uses the same `format:check`
+      # npm script CI runs, over the same src/ + scripts/ glob.
+      - id: prettier
+        name: prettier (format:check)
+        entry: bash -c 'npm run format:check'
+        language: system
+        pass_filenames: false
+        types_or: [ts, tsx, css, javascript]
+        stages: [pre-commit]
+
       # Commit stage: fast lint (mirror ci.yml Lint). Quick to run, catches the
       # most common defects pre-commit.
       - id: eslint

@@ -5,11 +5,7 @@ import type { SVGAttributes } from 'react'
  * that sits beside page titles. Renders an interlocking
  * geometric motif inspired by Islamic tilework.
  */
-export function PageHeaderAccent({
-  className,
-  style,
-  ...props
-}: SVGAttributes<SVGElement>) {
+export function PageHeaderAccent({ className, style, ...props }: SVGAttributes<SVGElement>) {
   return (
     <svg
       viewBox="-2 -2 36 28"
