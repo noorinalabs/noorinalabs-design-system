@@ -1,6 +1,11 @@
 name: Publish to GitHub Packages
 
 on:
+  push:
+    branches:
+      - main
+      - 'deployments/**'
+    tags: ['v*']
   release:
     types: [published]
 
@@ -31,7 +36,23 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check if version already published
+        id: version_check
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          echo "version=$PKG_VERSION" >> "$GITHUB_OUTPUT"
+          if npm view "@noorinalabs/design-system@$PKG_VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+            echo "Version $PKG_VERSION already published — skipping publish step."
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+            echo "Version $PKG_VERSION not yet on registry — will publish."
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish
+        if: steps.version_check.outputs.already_published == 'false'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
