@@ -10,6 +10,10 @@ import { CompareIcon } from '../icons/compare-icon'
 import { GraphExplorerIcon } from '../icons/graph-explorer-icon'
 import { TimelineIcon } from '../icons/timeline-icon'
 import { SignOutIcon } from '../icons/sign-out-icon'
+import { CloseIcon } from '../icons/close-icon'
+import { CheckIcon } from '../icons/check-icon'
+import { RadioDotIcon } from '../icons/radio-dot-icon'
+import { ChevronRightIcon } from '../icons/chevron-right-icon'
 import { GeometricBorder } from '../icons/geometric-border'
 import { OctagonalFrame } from '../icons/octagonal-frame'
 import { PageHeaderAccent } from '../icons/page-header-accent'
@@ -105,6 +109,44 @@ describe('SignOutIcon', () => {
   it('renders without crashing', () => {
     const { container } = render(<SignOutIcon />)
     expect(container.querySelector('svg')).toBeDefined()
+  })
+})
+
+describe('CloseIcon', () => {
+  it('renders an SVG with stroke-based paths', () => {
+    const { container } = render(<CloseIcon />)
+    const svg = container.querySelector('svg')
+    expect(svg).toBeDefined()
+    expect(svg?.getAttribute('stroke')).toBe('currentColor')
+    expect(svg?.getAttribute('aria-hidden')).toBe('true')
+  })
+})
+
+describe('CheckIcon', () => {
+  it('renders an SVG with stroke-based path', () => {
+    const { container } = render(<CheckIcon />)
+    const svg = container.querySelector('svg')
+    expect(svg).toBeDefined()
+    expect(svg?.getAttribute('stroke')).toBe('currentColor')
+  })
+})
+
+describe('RadioDotIcon', () => {
+  it('renders a filled circle', () => {
+    const { container } = render(<RadioDotIcon />)
+    const circle = container.querySelector('circle')
+    expect(circle).toBeDefined()
+    expect(circle?.getAttribute('fill')).toBe('currentColor')
+    expect(circle?.getAttribute('stroke')).toBe('none')
+  })
+})
+
+describe('ChevronRightIcon', () => {
+  it('renders an SVG with stroke-based path', () => {
+    const { container } = render(<ChevronRightIcon />)
+    const svg = container.querySelector('svg')
+    expect(svg).toBeDefined()
+    expect(svg?.getAttribute('stroke')).toBe('currentColor')
   })
 })
 

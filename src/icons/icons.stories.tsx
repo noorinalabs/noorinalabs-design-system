@@ -16,6 +16,10 @@ import {
   GeometricBorder,
   OctagonalFrame,
   PageHeaderAccent,
+  CloseIcon,
+  CheckIcon,
+  RadioDotIcon,
+  ChevronRightIcon,
 } from './index'
 import type { IconProps } from './types'
 
@@ -29,6 +33,10 @@ const icons = [
   { name: 'GraphExplorerIcon', Component: GraphExplorerIcon },
   { name: 'AdminIcon', Component: AdminIcon },
   { name: 'SignOutIcon', Component: SignOutIcon },
+  { name: 'CloseIcon', Component: CloseIcon },
+  { name: 'CheckIcon', Component: CheckIcon },
+  { name: 'RadioDotIcon', Component: RadioDotIcon },
+  { name: 'ChevronRightIcon', Component: ChevronRightIcon },
 ]
 
 function IconGallery(props: IconProps) {
