@@ -48,8 +48,8 @@ A **repository ruleset** targeting `~DEFAULT_BRANCH`, `enforcement: active`:
 
   | Context | Source job |
   |---------|-----------|
-  | `ci` | `ci.yml` → `ci` (eslint + prettier format-check + tsc + vite build + vitest) |
-  | `validate-package` | `ci.yml` → `validate-package` (pack contents + exports resolution) |
+  | `ci (20.x)` | `ci.yml` → `ci` (eslint + prettier format-check + tsc + vite build + vitest). The job has a `matrix: node-version: [20.x]`, so its check-run name is **matrix-expanded** to `ci (20.x)` — the bare `ci` context would never report and would deadlock every merge. |
+  | `validate-package` | `ci.yml` → `validate-package` (pack contents + exports resolution). No matrix, so the check-run name is the bare job name. |
 
   The `docs.yml` jobs added in W14 — including `precommit-ci-sync` (the
   Pre-commit ⇄ CI sync-drift gate) and the docs/config gates (`markdownlint`,
