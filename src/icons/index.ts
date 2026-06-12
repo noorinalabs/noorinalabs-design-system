@@ -1,6 +1,12 @@
 // Types
 export type { IconProps, IllustrationProps } from './types'
 
+// Framework-neutral icon geometry — single source of truth for the functional
+// icon set (#103). Also published standalone at `@noorinalabs/design-system/icons/paths`
+// for non-React (Astro / plain-DOM) consumers.
+export { ICON_NAMES, iconBaseAttributes, iconPaths, renderIconSvg } from './paths'
+export type { IconName, RenderIconOptions } from './paths'
+
 // Base components (for custom icon creation)
 export { IconBase } from './icon-base'
 export { IllustrationBase } from './illustration-base'

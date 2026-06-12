@@ -15,9 +15,16 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      // Multi-entry so subpath imports resolve to real emitted files. Previously a
+      // single `index` entry meant `./icons` pointed at a file that was never built
+      // (only its .d.ts existed); `./icons/paths` (#103) needs the same treatment.
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        'icons/index': resolve(__dirname, 'src/icons/index.ts'),
+        'icons/paths': resolve(__dirname, 'src/icons/paths.ts'),
+      },
       formats: ['es', 'cjs'],
-      fileName: 'index',
+      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'js' : 'cjs'}`,
     },
     sourcemap: true,
     cssCodeSplit: false,
