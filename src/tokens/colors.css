@@ -16,7 +16,16 @@
 /* ============================================================
  * LIGHT MODE (default)
  * ============================================================ */
-@theme {
+/*
+ * Base tokens are declared in :root (plain CSS custom properties), NOT a
+ * Tailwind `@theme {}` block. `@theme` is a build-time directive; this library
+ * ships its tokens as plain CSS (no `@import "tailwindcss"` in the dist build
+ * graph), so a raw `@theme` block survives uncompiled into the published
+ * dist/styles.css, where browsers treat it as an unknown at-rule and ignore it —
+ * silently dropping every base token for non-Tailwind consumers. Emitting to
+ * :root makes the default (light) theme apply for ANY CSS consumer. See #104.
+ */
+:root {
   /* --- Semantic colors --- */
   --color-primary: oklch(0.55 0.14 45);
   --color-primary-hover: oklch(0.6 0.14 45);
@@ -90,7 +99,7 @@
  * DARK MODE — prefers-color-scheme
  * ============================================================ */
 @media (prefers-color-scheme: dark) {
-  @theme {
+  :root {
     /* Surface colors */
     --color-background: oklch(0.2 0.015 260);
     --color-foreground: oklch(0.92 0.01 85);

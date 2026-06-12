@@ -69,6 +69,19 @@ jobs:
           grep 'dist/index.cjs' /tmp/pack-output.txt || (echo "FAIL: dist/index.cjs missing from package" && exit 1)
           echo "Package contents verified"
 
+      - name: Verify base tokens compiled to :root (not raw @theme) — #104
+        run: |
+          # The published dist is consumed as plain CSS. A raw Tailwind `@theme {}`
+          # block is an unknown at-rule to browsers and is silently ignored, so any
+          # base token trapped inside it never applies for non-Tailwind consumers.
+          if grep -q '@theme' dist/styles.css; then
+            echo "FAIL: raw @theme leaked into published dist/styles.css — base tokens will be ignored by non-Tailwind consumers (#104)"
+            exit 1
+          fi
+          grep -q -- '--color-border:' dist/styles.css || (echo "FAIL: --color-border not emitted to dist (#104)" && exit 1)
+          grep -q ':root' dist/styles.css || (echo "FAIL: no :root selector in dist (#104)" && exit 1)
+          echo "Base tokens compiled to :root — verified (#104)"
+
       - name: Verify exports field resolution
         run: node scripts/validate-package-exports.mjs
 

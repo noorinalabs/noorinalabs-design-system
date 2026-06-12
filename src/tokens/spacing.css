@@ -7,7 +7,9 @@
  * Borders: width scale
  */
 
-@theme {
+/* Declared in :root, not Tailwind `@theme`, so these compile into the plain-CSS
+ * dist and are honored by all consumers (not just Tailwind pipelines). See #104. */
+:root {
   /* --- Border radii --- */
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
