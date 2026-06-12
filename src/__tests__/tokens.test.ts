@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest'
 import {
   colors,
   colorsDark,
+  dataViz,
+  dataVizDark,
   fontFamily,
   fontSize,
   fontWeight,
@@ -40,6 +42,23 @@ describe('design tokens', () => {
     expect(colors.sunni).toBeTruthy()
     expect(colors.shia).toBeTruthy()
     expect(colors.tierThiqah).toBeTruthy()
+  })
+
+  it('exports a categorical data-viz palette (light + dark) with an accent', () => {
+    expect(dataViz.categorical).toHaveLength(10)
+    expect(dataVizDark.categorical).toHaveLength(dataViz.categorical.length)
+    for (const c of [...dataViz.categorical, ...dataVizDark.categorical]) {
+      expect(c).toMatch(/^oklch\(/)
+    }
+    expect(dataViz.accent).toBeTruthy()
+    expect(dataVizDark.accent).toBeTruthy()
+  })
+
+  it('keeps the categorical series perceptually distinct (unique hues)', () => {
+    const hueOf = (c: string) => Number(c.match(/oklch\([\d.]+ [\d.]+ ([\d.]+)\)/)?.[1])
+    const hues = dataViz.categorical.map(hueOf)
+    expect(hues.every((h) => Number.isFinite(h))).toBe(true)
+    expect(new Set(hues).size).toBe(hues.length)
   })
 
   it('exports font family tokens', () => {
@@ -102,6 +121,8 @@ describe('design tokens', () => {
     expect(tokens).toBeDefined()
     expect(tokens.colors).toBe(colors)
     expect(tokens.colorsDark).toBe(colorsDark)
+    expect(tokens.dataViz).toBe(dataViz)
+    expect(tokens.dataVizDark).toBe(dataVizDark)
     expect(tokens.fontFamily).toBe(fontFamily)
     expect(tokens.fontSize).toBe(fontSize)
     expect(tokens.spacing).toBe(spacing)

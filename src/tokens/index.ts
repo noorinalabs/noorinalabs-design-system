@@ -145,6 +145,52 @@ export const colorsDark = {
 } as const
 
 // ---------------------------------------------------------------------------
+// Data-viz — categorical / qualitative series palette
+//
+// Qualitative scale for graph & chart series (clusters, communities). Hues are
+// spread around the wheel with deliberate lightness variation for CVD
+// distinguishability; each series meets WCAG 2.2 non-text contrast (>=3:1)
+// against the matching-mode `background` token.
+//
+// For theme-reactive consumers (e.g. a canvas reading resolved hex), prefer the
+// CSS custom properties `--color-viz-categorical-{1..10}` / `--color-viz-accent`,
+// which switch with light/dark mode. These constants are the static light- and
+// dark-mode values for libraries that take a color array directly.
+// ---------------------------------------------------------------------------
+
+export const dataViz = {
+  categorical: [
+    'oklch(0.58 0.15 35)',
+    'oklch(0.60 0.135 75)',
+    'oklch(0.62 0.12 120)',
+    'oklch(0.55 0.11 155)',
+    'oklch(0.58 0.10 195)',
+    'oklch(0.52 0.13 245)',
+    'oklch(0.48 0.14 275)',
+    'oklch(0.52 0.15 310)',
+    'oklch(0.55 0.16 345)',
+    'oklch(0.50 0.17 15)',
+  ],
+  accent: 'oklch(0.55 0.18 255)',
+} as const
+
+export const dataVizDark = {
+  categorical: [
+    'oklch(0.72 0.13 35)',
+    'oklch(0.78 0.12 75)',
+    'oklch(0.75 0.11 120)',
+    'oklch(0.70 0.10 155)',
+    'oklch(0.72 0.09 195)',
+    'oklch(0.68 0.12 245)',
+    'oklch(0.66 0.13 275)',
+    'oklch(0.70 0.13 310)',
+    'oklch(0.72 0.14 345)',
+    'oklch(0.68 0.15 15)',
+  ],
+  accent: 'oklch(0.70 0.15 255)',
+} as const
+
+// ---------------------------------------------------------------------------
 // Typography
 // ---------------------------------------------------------------------------
 
@@ -327,6 +373,8 @@ export const borderWidth = {
 export const tokens = {
   colors,
   colorsDark,
+  dataViz,
+  dataVizDark,
   fontFamily,
   fontSize,
   fontWeight,
