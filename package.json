@@ -1,6 +1,6 @@
 {
   "name": "@noorinalabs/design-system",
-  "version": "0.0.5-wave4.0",
+  "version": "0.0.5-wave4.1",
   "type": "module",
   "files": [
     "dist"
