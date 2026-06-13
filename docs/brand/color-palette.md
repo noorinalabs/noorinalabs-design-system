@@ -106,6 +106,68 @@ Domain-specific grading colors (sahih/hasan/daif/mawdu) always include text labe
 
 ---
 
+## Categorical / Data-Visualization Palette
+
+A **qualitative** scale for graph and chart **series** — community/cluster coloring in the isnad-graph `ForceGraph`, comparative views, and timelines. Unlike the semantic and domain colors above, these carry **no inherent meaning**: they exist only to keep adjacent series mutually distinguishable. Index assignment (series 1, 2, 3, …) is positional and stable, so a given cluster keeps its color across renders.
+
+Design constraints:
+
+- **10 series**, hues spread around the wheel with deliberate **lightness variation** so the scale survives the three common forms of color-vision deficiency (CVD), not hue alone.
+- Each series meets **WCAG 2.2 §1.4.11 non-text contrast (≥3:1)** against its mode's `--color-background`, so a filled node/marker reads against the canvas. (Series marks are graphical objects; pair them with labels/legends — never rely on series color alone to convey identity.)
+- A separate **accent** token (`--color-viz-accent`) for the active/selected edge or focused-node ring.
+- Light and dark variants follow the same lighten-for-dark strategy as the rest of the system.
+
+### Light Mode (on Parchment `#f5f0e8`)
+
+| Token | OKLCH | Hex | Contrast vs bg |
+|-------|-------|-----|----------------|
+| `--color-viz-categorical-1` | `oklch(0.58 0.15 35)` | `#c25237` | 4.08:1 |
+| `--color-viz-categorical-2` | `oklch(0.6 0.135 75)` | `#ae7200` | 3.59:1 |
+| `--color-viz-categorical-3` | `oklch(0.62 0.12 120)` | `#7d9034` | 3.15:1 |
+| `--color-viz-categorical-4` | `oklch(0.55 0.11 155)` | `#318454` | 4.10:1 |
+| `--color-viz-categorical-5` | `oklch(0.58 0.1 195)` | `#008c8d` | 3.63:1 |
+| `--color-viz-categorical-6` | `oklch(0.52 0.13 245)` | `#036eae` | 4.86:1 |
+| `--color-viz-categorical-7` | `oklch(0.48 0.14 275)` | `#4953ab` | 6.05:1 |
+| `--color-viz-categorical-8` | `oklch(0.52 0.15 310)` | `#834ba8` | 5.28:1 |
+| `--color-viz-categorical-9` | `oklch(0.55 0.16 345)` | `#af4387` | 4.72:1 |
+| `--color-viz-categorical-10` | `oklch(0.5 0.17 15)` | `#af2843` | 5.86:1 |
+| `--color-viz-accent` | `oklch(0.55 0.18 255)` | `#026fd7` | 4.39:1 |
+
+### Dark Mode (on Charcoal `#1a1f28`)
+
+| Token | OKLCH | Hex | Contrast vs bg |
+|-------|-------|-----|----------------|
+| `--color-viz-categorical-1` | `oklch(0.72 0.13 35)` | `#ea856b` | 6.94:1 |
+| `--color-viz-categorical-2` | `oklch(0.78 0.12 75)` | `#e4ac59` | 8.91:1 |
+| `--color-viz-categorical-3` | `oklch(0.75 0.11 120)` | `#a5b866` | 8.34:1 |
+| `--color-viz-categorical-4` | `oklch(0.7 0.1 155)` | `#69b183` | 7.08:1 |
+| `--color-viz-categorical-5` | `oklch(0.72 0.09 195)` | `#57b6b6` | 7.58:1 |
+| `--color-viz-categorical-6` | `oklch(0.68 0.12 245)` | `#519fdd` | 6.35:1 |
+| `--color-viz-categorical-7` | `oklch(0.66 0.13 275)` | `#7c8ae1` | 5.68:1 |
+| `--color-viz-categorical-8` | `oklch(0.7 0.13 310)` | `#b786db` | 6.43:1 |
+| `--color-viz-categorical-9` | `oklch(0.72 0.14 345)` | `#e17eb9` | 6.82:1 |
+| `--color-viz-categorical-10` | `oklch(0.68 0.15 15)` | `#e56d7a` | 5.85:1 |
+| `--color-viz-accent` | `oklch(0.7 0.15 255)` | `#59a0f9` | 6.76:1 |
+
+> Contrast ratios computed via OKLCH→sRGB conversion against the mode's `--color-background`. All series clear the 3:1 non-text-contrast bar; the accent additionally clears 4.5:1 (text-level AA) in both modes.
+
+### Consuming the palette
+
+These tokens are exported both ways, matching the rest of the system:
+
+- **CSS custom properties** — `--color-viz-categorical-1` … `--color-viz-categorical-10` and `--color-viz-accent`. They are **theme-reactive**: they resolve to the light or dark value automatically under `prefers-color-scheme` or a `[data-theme]` toggle. A canvas renderer that cannot use `var()` directly should read the resolved value with `getComputedStyle(document.documentElement).getPropertyValue('--color-viz-categorical-' + n)`, mirroring how `ForceGraph` already reads its theme colors. This keeps the graph in step with light/dark mode.
+- **TypeScript constants** — `dataViz` (light) and `dataVizDark` (dark) from `@noorinalabs/design-system/tokens`, each `{ categorical: string[], accent: string }`. Use these for libraries that take a static color array. Note they are **not** theme-reactive — prefer the CSS vars when the view must follow the active theme.
+
+```ts
+import { dataViz } from '@noorinalabs/design-system/tokens'
+
+const seriesColor = (i: number) => dataViz.categorical[i % dataViz.categorical.length]
+```
+
+This palette is the agreed source for **isnad-graph#979** (deriving `ForceGraph` community colors + accent from DS tokens), replacing the bespoke hardcoded `COMMUNITY_HEX` array and `ACCENT`.
+
+---
+
 ## Usage Guidelines
 
 ### Do

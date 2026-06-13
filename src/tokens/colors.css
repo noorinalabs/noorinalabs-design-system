@@ -11,12 +11,22 @@
  *   - Domain (hadith grading): sahih, hasan, daif, mawdu
  *   - Domain (sect): sunni, shia
  *   - Domain (narrator reliability): thiqah, saduq, daif-narrator, matruk, kadhdhab
+ *   - Data-viz: categorical series (1..10) + accent (graph/chart qualitative scale)
  */
 
 /* ============================================================
  * LIGHT MODE (default)
  * ============================================================ */
-@theme {
+/*
+ * Base tokens are declared in :root (plain CSS custom properties), NOT a
+ * Tailwind `@theme {}` block. `@theme` is a build-time directive; this library
+ * ships its tokens as plain CSS (no `@import "tailwindcss"` in the dist build
+ * graph), so a raw `@theme` block survives uncompiled into the published
+ * dist/styles.css, where browsers treat it as an unknown at-rule and ignore it —
+ * silently dropping every base token for non-Tailwind consumers. Emitting to
+ * :root makes the default (light) theme apply for ANY CSS consumer. See #104.
+ */
+:root {
   /* --- Semantic colors --- */
   --color-primary: oklch(0.55 0.14 45);
   --color-primary-hover: oklch(0.6 0.14 45);
@@ -84,13 +94,31 @@
   --color-tier-matruk-bg: oklch(0.95 0.03 30);
   --color-tier-kadhdhab: oklch(0.5 0.15 15);
   --color-tier-kadhdhab-bg: oklch(0.94 0.03 15);
+
+  /* --- Data-viz: categorical series palette ---
+   * Qualitative scale for graph/chart series (clusters, communities).
+   * Hue-spread + lightness-varied for CVD distinguishability; each series
+   * meets WCAG 2.2 non-text contrast (>=3:1) against --color-background.
+   * Consumed via getComputedStyle by isnad-graph ForceGraph (ig#979). */
+  --color-viz-categorical-1: oklch(0.58 0.15 35);
+  --color-viz-categorical-2: oklch(0.6 0.135 75);
+  --color-viz-categorical-3: oklch(0.62 0.12 120);
+  --color-viz-categorical-4: oklch(0.55 0.11 155);
+  --color-viz-categorical-5: oklch(0.58 0.1 195);
+  --color-viz-categorical-6: oklch(0.52 0.13 245);
+  --color-viz-categorical-7: oklch(0.48 0.14 275);
+  --color-viz-categorical-8: oklch(0.52 0.15 310);
+  --color-viz-categorical-9: oklch(0.55 0.16 345);
+  --color-viz-categorical-10: oklch(0.5 0.17 15);
+  /* Highlight for active/selected edge or focused node ring. */
+  --color-viz-accent: oklch(0.55 0.18 255);
 }
 
 /* ============================================================
  * DARK MODE — prefers-color-scheme
  * ============================================================ */
 @media (prefers-color-scheme: dark) {
-  @theme {
+  :root {
     /* Surface colors */
     --color-background: oklch(0.2 0.015 260);
     --color-foreground: oklch(0.92 0.01 85);
@@ -150,6 +178,20 @@
     --color-tier-matruk-bg: oklch(0.25 0.03 30);
     --color-tier-kadhdhab: oklch(0.6 0.14 15);
     --color-tier-kadhdhab-bg: oklch(0.24 0.03 15);
+
+    /* Data-viz: categorical series palette (dark) — lightened for >=3:1
+     * non-text contrast against the dark --color-background. */
+    --color-viz-categorical-1: oklch(0.72 0.13 35);
+    --color-viz-categorical-2: oklch(0.78 0.12 75);
+    --color-viz-categorical-3: oklch(0.75 0.11 120);
+    --color-viz-categorical-4: oklch(0.7 0.1 155);
+    --color-viz-categorical-5: oklch(0.72 0.09 195);
+    --color-viz-categorical-6: oklch(0.68 0.12 245);
+    --color-viz-categorical-7: oklch(0.66 0.13 275);
+    --color-viz-categorical-8: oklch(0.7 0.13 310);
+    --color-viz-categorical-9: oklch(0.72 0.14 345);
+    --color-viz-categorical-10: oklch(0.68 0.15 15);
+    --color-viz-accent: oklch(0.7 0.15 255);
   }
 }
 
@@ -207,6 +249,17 @@
   --color-tier-matruk-bg: oklch(0.25 0.03 30);
   --color-tier-kadhdhab: oklch(0.6 0.14 15);
   --color-tier-kadhdhab-bg: oklch(0.24 0.03 15);
+  --color-viz-categorical-1: oklch(0.72 0.13 35);
+  --color-viz-categorical-2: oklch(0.78 0.12 75);
+  --color-viz-categorical-3: oklch(0.75 0.11 120);
+  --color-viz-categorical-4: oklch(0.7 0.1 155);
+  --color-viz-categorical-5: oklch(0.72 0.09 195);
+  --color-viz-categorical-6: oklch(0.68 0.12 245);
+  --color-viz-categorical-7: oklch(0.66 0.13 275);
+  --color-viz-categorical-8: oklch(0.7 0.13 310);
+  --color-viz-categorical-9: oklch(0.72 0.14 345);
+  --color-viz-categorical-10: oklch(0.68 0.15 15);
+  --color-viz-accent: oklch(0.7 0.15 255);
   color-scheme: dark;
 }
 
@@ -259,5 +312,16 @@
   --color-tier-matruk-bg: oklch(0.95 0.03 30);
   --color-tier-kadhdhab: oklch(0.5 0.15 15);
   --color-tier-kadhdhab-bg: oklch(0.94 0.03 15);
+  --color-viz-categorical-1: oklch(0.58 0.15 35);
+  --color-viz-categorical-2: oklch(0.6 0.135 75);
+  --color-viz-categorical-3: oklch(0.62 0.12 120);
+  --color-viz-categorical-4: oklch(0.55 0.11 155);
+  --color-viz-categorical-5: oklch(0.58 0.1 195);
+  --color-viz-categorical-6: oklch(0.52 0.13 245);
+  --color-viz-categorical-7: oklch(0.48 0.14 275);
+  --color-viz-categorical-8: oklch(0.52 0.15 310);
+  --color-viz-categorical-9: oklch(0.55 0.16 345);
+  --color-viz-categorical-10: oklch(0.5 0.17 15);
+  --color-viz-accent: oklch(0.55 0.18 255);
   color-scheme: light;
 }

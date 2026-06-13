@@ -1,6 +1,6 @@
 {
   "name": "@noorinalabs/design-system",
-  "version": "0.0.2",
+  "version": "0.0.5-wave4.0",
   "type": "module",
   "files": [
     "dist"
@@ -24,7 +24,13 @@
     },
     "./icons": {
       "types": "./dist/icons/index.d.ts",
-      "import": "./dist/icons/index.js"
+      "import": "./dist/icons/index.js",
+      "require": "./dist/icons/index.cjs"
+    },
+    "./icons/paths": {
+      "types": "./dist/icons/paths.d.ts",
+      "import": "./dist/icons/paths.js",
+      "require": "./dist/icons/paths.cjs"
     },
     "./styles": "./dist/styles.css",
     "./styles.css": "./dist/styles.css"
