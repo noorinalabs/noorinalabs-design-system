@@ -43,10 +43,44 @@ jobs:
           echo "version=$PKG_VERSION" >> "$GITHUB_OUTPUT"
           if npm view "@noorinalabs/design-system@$PKG_VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
             echo "already_published=true" >> "$GITHUB_OUTPUT"
-            echo "Version $PKG_VERSION already published — skipping publish step."
+            echo "Version $PKG_VERSION already on registry — publish step will be skipped (drift guard runs first)."
           else
             echo "already_published=false" >> "$GITHUB_OUTPUT"
             echo "Version $PKG_VERSION not yet on registry — will publish."
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Silent-drop guard (#111): when the version already exists the Publish
+      # step below is skipped, so a dist-only change made WITHOUT a version bump
+      # would never reach consumers — with green CI. (This is exactly how #107's
+      # `:root` token fix was lost: dist changed, version stayed 0.0.5-wave4.0,
+      # publish no-op'd.) Diff the freshly-built dist/ against the dist/ inside
+      # the already-published tarball; if they differ, fail and demand a bump.
+      - name: Guard — dist drift at unchanged version (#111)
+        if: steps.version_check.outputs.already_published == 'true'
+        run: |
+          set -euo pipefail
+          PKG_VERSION="${{ steps.version_check.outputs.version }}"
+          WORKDIR="$(mktemp -d)"
+          echo "Fetching published tarball @noorinalabs/design-system@$PKG_VERSION for comparison..."
+          if ! ( cd "$WORKDIR" && npm pack "@noorinalabs/design-system@$PKG_VERSION" \
+                   --registry=https://npm.pkg.github.com >/dev/null 2>pack.err ); then
+            echo "::warning::Could not download the published @$PKG_VERSION tarball to compare dist/ (see below). Cannot verify drift; if you changed dist/, bump the version to be safe."
+            cat "$WORKDIR/pack.err" || true
+            exit 0
+          fi
+          tar -xzf "$WORKDIR"/*.tgz -C "$WORKDIR"   # tarball extracts to ./package
+          if diff -ru "$WORKDIR/package/dist" dist >/tmp/dist-drift.diff 2>&1; then
+            echo "No dist drift — published $PKG_VERSION matches the freshly built dist. Skipping publish is safe."
+          else
+            NEXT="${PKG_VERSION%.*}.$(( ${PKG_VERSION##*.} + 1 ))"
+            echo "::error::Built dist/ differs from the already-published @noorinalabs/design-system@$PKG_VERSION, but package.json version is unchanged."
+            echo "The Publish step skips existing versions, so this change would be SILENTLY DROPPED (#111)."
+            echo "Bump the version in package.json (e.g. $NEXT) so the new dist actually ships to consumers."
+            echo "----- dist diff (published $PKG_VERSION  vs  freshly built) -----"
+            cat /tmp/dist-drift.diff
+            exit 1
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
