@@ -10,4 +10,5 @@
 @import './utilities.css';
 @import './components.css';
 @import './animations.css';
+@import './motion.css';
 @import './states.css';

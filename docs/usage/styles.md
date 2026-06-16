@@ -15,7 +15,8 @@ This single import loads:
 3. **Utility classes** — text helpers, layout, links, Arabic/RTL support
 4. **Component classes** — tables, cards, badges, buttons, forms, pagination
 5. **Animations** — skeleton loading shimmer
-6. **State patterns** — loading, empty, and error page styles
+6. **Motion primitives** — framework-neutral scroll-reveal + parallax classes
+7. **State patterns** — loading, empty, and error page styles
 
 ---
 
@@ -183,6 +184,38 @@ Domain variants: `.badge-sunni`, `.badge-shia`, `.badge-sahih`, `.badge-other-gr
 | `.skeleton-row` | 2.5rem | Table/list row placeholder |
 
 Automatically disables animation when `prefers-reduced-motion: reduce` is active.
+
+---
+
+## Motion Primitives
+
+Framework-neutral scroll-reveal and parallax classes, shipped as plain compiled
+CSS (no React, no Tailwind required) so any consumer — the Astro landing page or
+the React isnad-graph app — reuses the same behaviour. The timing is built
+entirely on the DS motion tokens (`--duration-*`, `--ease-*`).
+
+The DS owns the **styling**; the consumer supplies a small, framework-neutral
+**script** that toggles the contract classes/variables:
+
+| Hook | Owner | Description |
+|------|-------|-------------|
+| `<html class="motion-ready">` | script | Added only after the script confirms motion is allowed & supported. Until present, content is fully visible (no-JS / reduced-motion safe). |
+| `.reveal` | DS | Element that fades + rises in. Visible by default; hidden pre-reveal state applies only under `.motion-ready`. |
+| `.reveal.is-visible` | script | Toggle (e.g. via `IntersectionObserver`) to play the reveal. |
+| `.reveal-delay-1` / `-2` / `-3` | DS | Token-derived stagger delays for grouped reveals. |
+| `[data-parallax]` + `--parallax-offset` | DS / script | Drift a layer on scroll; the script sets the per-element `--parallax-offset` (px), rAF-throttled. |
+
+```html
+<!-- Reveal on scroll (script toggles .is-visible) -->
+<section class="reveal">…</section>
+<section class="reveal reveal-delay-1">…</section>
+
+<!-- Parallax layer (script sets --parallax-offset on scroll) -->
+<div data-parallax></div>
+```
+
+Under `prefers-reduced-motion: reduce`, all reveals render in their final visible
+state and parallax transforms are removed — even if `.motion-ready` is present.
 
 ---
 

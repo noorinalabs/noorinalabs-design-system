@@ -1,0 +1,97 @@
+/*
+ * Motion primitives — Qalam Design System (#110)
+ * ================================================
+ * Framework-neutral scroll-reveal + parallax CSS primitives, promoted from the
+ * landing page (lp#121) so EVERY consumer reuses the same behaviour instead of
+ * re-implementing it: the Astro landing page (which cannot import React) AND the
+ * React isnad-graph app both get these from the published `dist/styles.css`.
+ *
+ * These are plain CSS class / attribute selectors — NOT Tailwind utilities — so
+ * they compile into the published `dist/styles.css` unconditionally (no
+ * content-scan, no `@source inline` mirror, no `@theme {}`). A non-Tailwind,
+ * non-React consumer gets real, browser-honored rules. (DS #104/#111/#812: a
+ * primitive that only lives in `@theme {}` or in dist JS emits 0 CSS in a
+ * framework-neutral consumer — these rules deliberately avoid that trap.)
+ *
+ * Timing is built ENTIRELY on the DS motion tokens (`--duration-*`, `--ease-*`,
+ * shipped to `:root` by the token build). No bespoke durations or easing curves
+ * live here.
+ *
+ * The CSS / JS contract (the consumer supplies a small, framework-neutral
+ * script; the DS owns the styling):
+ *   - `<html class="motion-ready">` — the consumer's script adds this ONLY after
+ *     it confirms motion is allowed and supported. Until then the pre-reveal
+ *     hidden state does not apply, so the page is fully visible with JS disabled.
+ *   - `.reveal.is-visible` — the script toggles `.is-visible` (e.g. via
+ *     IntersectionObserver) to play the reveal.
+ *   - `[data-parallax]` + `--parallax-offset` — the script sets the per-element
+ *     `--parallax-offset` (px) on scroll (rAF-throttled recommended).
+ *
+ * Accessibility / no-JS safety:
+ *   - Content is fully visible BY DEFAULT. The hidden pre-reveal state applies
+ *     ONLY under `html.motion-ready`, so with JS disabled — or when the script
+ *     bails on `prefers-reduced-motion: reduce` — every `.reveal` element renders
+ *     in its final, visible state with no transition.
+ *   - The `prefers-reduced-motion: reduce` block is a belt-and-braces guard for
+ *     the case where `.motion-ready` is ever present: it forces the visible state
+ *     and removes transitions / parallax transforms.
+ */
+
+/* ============================================================
+ * SCROLL-REVEAL — fade + rise as the element enters the viewport
+ * ============================================================ */
+
+/* Default (no-JS / reduced-motion / pre-script): fully visible, no transform. */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.motion-ready .reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity var(--duration-slower) var(--ease-out),
+    transform var(--duration-slower) var(--ease-out);
+}
+
+html.motion-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger helpers — small, DS-token-derived delays for grouped reveals. */
+html.motion-ready .reveal-delay-1 {
+  transition-delay: var(--duration-fast);
+}
+html.motion-ready .reveal-delay-2 {
+  transition-delay: var(--duration-normal);
+}
+html.motion-ready .reveal-delay-3 {
+  transition-delay: var(--duration-slow);
+}
+
+/* ============================================================
+ * PARALLAX — decorative layers drift at a fraction of scroll
+ * The consumer's script sets `--parallax-offset` (px) per element on scroll
+ * (rAF-throttled). The transform stays GPU-friendly (translate3d only) and the
+ * rule is inert until the script upgrades <html> to `.motion-ready`.
+ * ============================================================ */
+html.motion-ready [data-parallax] {
+  transform: translate3d(0, var(--parallax-offset, 0), 0);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  html.motion-ready .reveal,
+  html.motion-ready .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  html.motion-ready [data-parallax] {
+    transform: none;
+  }
+}
