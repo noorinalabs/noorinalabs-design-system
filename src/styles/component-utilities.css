@@ -1,0 +1,144 @@
+/*
+ * Compiled Component-Utilities Layer — Qalam Design System
+ * =========================================================
+ * WHY THIS FILE EXISTS
+ * --------------------
+ * The interactive components (Dialog, DropdownMenu, Select, Toast, Tooltip,
+ * Button, Badge, Input, …) express their structural contract — positioning,
+ * sizing, overlay, focus ring, surface colors — as Tailwind *utility* classes
+ * in their `className` strings (e.g. the Dialog overlay's
+ * `fixed inset-0 z-50 bg-black/80` and content's
+ * `fixed start-1/2 top-1/2 max-w-lg -translate-x-1/2 -translate-y-1/2`).
+ *
+ * Those utilities are NOT plain authored CSS — they only exist once a Tailwind
+ * build *scans the component source and emits them*. The published library
+ * historically shipped compiled JS + token CSS but never ran a Tailwind utility
+ * pass over its own components, so `dist/styles.css` contained ZERO of these
+ * utilities. A consumer's Tailwind build skips `node_modules`, so the component
+ * utilities emitted nowhere → DS dialogs/menus rendered unconstrained unless the
+ * app hand-mirrored the class list with `@source inline(...)` (fragile; drifts
+ * whenever a component changes). See ds#115 / isnad-graph #1027 (PR #1055).
+ *
+ * THE FIX
+ * -------
+ * Run a Tailwind utility pass over the component source at DS build time and
+ * ship the result. This file is that pass; it is imported into the dist style
+ * bundle (`styles/index.css`), so `dist/styles.css` now carries the compiled
+ * component-utilities layer and consumers can DROP their `@source inline`
+ * mirrors — importing `@noorinalabs/design-system/styles` is enough.
+ *
+ * DESIGN NOTES
+ * ------------
+ * - `source(none)` on the utilities import disables Tailwind's automatic
+ *   content detection; the explicit `@source` below scopes scanning to the
+ *   component implementations (stories are excluded — they are demo-only).
+ * - We import `tailwindcss/theme.css` (not the full `tailwindcss`) so we get the
+ *   default scale tokens (spacing base, radius, font-size, shadow, container)
+ *   the structural utilities resolve against, but NOT Preflight — a library must
+ *   never inject a global reset into its consumers. Tailwind v4 only emits the
+ *   theme variables actually referenced by the generated utilities, so this does
+ *   not bloat the bundle with the full default palette.
+ * - Colors are mapped with `@theme inline`: the generated color utilities
+ *   (`bg-background`, `text-muted-foreground`, …) reference the runtime
+ *   `--color-*` tokens shipped in `tokens/colors.css` rather than re-emitting
+ *   them, so there is a single source of truth for the palette and (per #104)
+ *   no `@theme` literal survives into dist.
+ */
+
+/*
+ * Declare the layer order up front so the generated utilities sit in the
+ * standard `utilities` cascade layer. This keeps DS-shipped utilities at the
+ * same (low) precedence as a consumer's own Tailwind `utilities` layer — they
+ * merge into one layer, so the consumer can still override component utilities,
+ * and authored DS component classes (not in any layer) continue to win over them.
+ */
+@layer theme, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+
+/* Scan the component implementations only (not stories/tests). */
+@source '../components/*.tsx';
+@source not '../components/*.stories.tsx';
+
+/*
+ * Map the Qalam palette into Tailwind's color namespace *inline* so color
+ * utilities resolve to the runtime tokens from tokens/colors.css. `inline`
+ * means the value is substituted into the utility (e.g.
+ * `.bg-background{background-color:var(--color-background)}`) and the token is
+ * NOT re-declared here — tokens/colors.css remains the single source of truth.
+ */
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-destructive: var(--color-destructive);
+  --color-destructive-foreground: var(--color-destructive-foreground);
+  --color-success: var(--color-success);
+  --color-success-foreground: var(--color-success-foreground);
+  --color-warning: var(--color-warning);
+  --color-warning-foreground: var(--color-warning-foreground);
+  --color-info: var(--color-info);
+  --color-info-foreground: var(--color-info-foreground);
+
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-card: var(--color-card);
+  --color-card-foreground: var(--color-card-foreground);
+  --color-popover: var(--color-popover);
+  --color-popover-foreground: var(--color-popover-foreground);
+
+  --color-border: var(--color-border);
+  --color-input: var(--color-input);
+  --color-ring: var(--color-ring);
+
+  --color-brand-navy: var(--color-brand-navy);
+  --color-brand-navy-light: var(--color-brand-navy-light);
+  --color-brand-navy-dark: var(--color-brand-navy-dark);
+  --color-brand-gold: var(--color-brand-gold);
+  --color-brand-gold-light: var(--color-brand-gold-light);
+  --color-brand-gold-dark: var(--color-brand-gold-dark);
+
+  --color-sahih: var(--color-sahih);
+  --color-sahih-bg: var(--color-sahih-bg);
+  --color-hasan: var(--color-hasan);
+  --color-hasan-bg: var(--color-hasan-bg);
+  --color-daif: var(--color-daif);
+  --color-daif-bg: var(--color-daif-bg);
+  --color-mawdu: var(--color-mawdu);
+  --color-mawdu-bg: var(--color-mawdu-bg);
+
+  --color-sunni: var(--color-sunni);
+  --color-sunni-bg: var(--color-sunni-bg);
+  --color-shia: var(--color-shia);
+  --color-shia-bg: var(--color-shia-bg);
+
+  --color-tier-thiqah: var(--color-tier-thiqah);
+  --color-tier-thiqah-bg: var(--color-tier-thiqah-bg);
+  --color-tier-saduq: var(--color-tier-saduq);
+  --color-tier-saduq-bg: var(--color-tier-saduq-bg);
+  --color-tier-daif-narrator: var(--color-tier-daif-narrator);
+  --color-tier-daif-narrator-bg: var(--color-tier-daif-narrator-bg);
+  --color-tier-matruk: var(--color-tier-matruk);
+  --color-tier-matruk-bg: var(--color-tier-matruk-bg);
+  --color-tier-kadhdhab: var(--color-tier-kadhdhab);
+  --color-tier-kadhdhab-bg: var(--color-tier-kadhdhab-bg);
+
+  --color-viz-categorical-1: var(--color-viz-categorical-1);
+  --color-viz-categorical-2: var(--color-viz-categorical-2);
+  --color-viz-categorical-3: var(--color-viz-categorical-3);
+  --color-viz-categorical-4: var(--color-viz-categorical-4);
+  --color-viz-categorical-5: var(--color-viz-categorical-5);
+  --color-viz-categorical-6: var(--color-viz-categorical-6);
+  --color-viz-categorical-7: var(--color-viz-categorical-7);
+  --color-viz-categorical-8: var(--color-viz-categorical-8);
+  --color-viz-categorical-9: var(--color-viz-categorical-9);
+  --color-viz-categorical-10: var(--color-viz-categorical-10);
+  --color-viz-accent: var(--color-viz-accent);
+}
