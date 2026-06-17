@@ -49,4 +49,19 @@ describe.skipIf(!distBuilt)('published dist token resolution (#104)', () => {
     expect(css).toContain('[data-theme=dark]')
     expect(css).toContain('[data-theme=light]')
   })
+
+  it('sets color-scheme in the prefers-dark :root block so native UI honors dark (#109)', () => {
+    // Find the @media(prefers-color-scheme:dark){:root{...}} block that carries
+    // the color tokens (a second prefers-dark block exists for shadows) and
+    // assert it declares `color-scheme: dark` — otherwise native form controls /
+    // scrollbars stay light under OS dark for plain-CSS consumers.
+    const prefersDarkRootBodies = [
+      ...css.matchAll(/@media[^{]*prefers-color-scheme:\s*dark[^{]*\{\s*:root\s*\{([^}]*)\}/g),
+    ].map((m) => m[1] ?? '')
+    const colorTokenBlock = prefersDarkRootBodies.find((body) =>
+      body.includes('--color-background'),
+    )
+    expect(colorTokenBlock, 'prefers-dark :root color block must exist in dist').toBeDefined()
+    expect(colorTokenBlock).toMatch(/color-scheme:\s*dark/)
+  })
 })
