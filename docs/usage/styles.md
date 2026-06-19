@@ -16,6 +16,53 @@ This single import loads:
 4. **Component classes** — tables, cards, badges, buttons, forms, pagination
 5. **Animations** — skeleton loading shimmer
 6. **State patterns** — loading, empty, and error page styles
+7. **Compiled component-utilities layer** — the Tailwind utility classes the React
+   components depend on (Dialog positioning/overlay, focus rings, surface colors, …)
+8. **Motion primitives** — framework-neutral scroll-reveal + parallax classes
+
+---
+
+## Component-Utilities Layer (no more `@source inline` mirrors)
+
+The React components (Dialog, DropdownMenu, Select, Toast, Tooltip, …) express
+their structural contract — positioning, sizing, overlay, focus ring, surface
+colors — as Tailwind utility classes in their `className` strings (e.g. the
+Dialog overlay's `fixed inset-0 z-50 bg-black/80` and content's
+`fixed start-1/2 top-1/2 max-w-lg -translate-x-1/2 -translate-y-1/2`).
+
+Those utilities only exist once a Tailwind build *scans the component source and
+emits them*. A consuming app's Tailwind build skips `node_modules`, so it never
+generates them — which is why apps previously had to hand-mirror the class list
+with `@source inline(...)` in their own theme CSS (fragile: it silently drifts
+whenever a component's classes change).
+
+**This is no longer necessary.** The design system now runs a Tailwind utility
+pass over its own components at build time and ships the result inside
+`dist/styles.css` (in the `utilities` cascade layer, with color utilities wired
+to the runtime `--color-*` tokens). Importing the stylesheet is enough:
+
+```tsx
+import '@noorinalabs/design-system/styles.css'
+```
+
+**Consumers can — and should — delete their DS-component `@source inline(...)`
+mirrors.** For example, a block like the following in your `theme.css` can be
+removed:
+
+```css
+/* DELETE — now shipped compiled in @noorinalabs/design-system/styles.css */
+@source inline("fixed inset-0 z-50 bg-black/80");
+@source inline("fixed start-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 border bg-background p-6 shadow-lg rounded-lg");
+/* …and the rest of the mirrored Dialog/menu/overlay class lists… */
+```
+
+Your own app's `@source` globs for *your own* markup stay as-is — only the
+mirrors that duplicated **design-system component** classes are redundant.
+
+> Note: the shipped layer covers the utilities the components actually use. The
+> open/close keyframe utilities (`animate-in`, `fade-*`, `zoom-*`) require the
+> `tailwindcss-animate` plugin and are not part of this layer; they are also not
+> required for the components to render correctly positioned and styled.
 
 ---
 
@@ -183,6 +230,38 @@ Domain variants: `.badge-sunni`, `.badge-shia`, `.badge-sahih`, `.badge-other-gr
 | `.skeleton-row` | 2.5rem | Table/list row placeholder |
 
 Automatically disables animation when `prefers-reduced-motion: reduce` is active.
+
+---
+
+## Motion Primitives
+
+Framework-neutral scroll-reveal and parallax classes, shipped as plain compiled
+CSS (no React, no Tailwind required) so any consumer — the Astro landing page or
+the React isnad-graph app — reuses the same behaviour. The timing is built
+entirely on the DS motion tokens (`--duration-*`, `--ease-*`).
+
+The DS owns the **styling**; the consumer supplies a small, framework-neutral
+**script** that toggles the contract classes/variables:
+
+| Hook | Owner | Description |
+|------|-------|-------------|
+| `<html class="motion-ready">` | script | Added only after the script confirms motion is allowed & supported. Until present, content is fully visible (no-JS / reduced-motion safe). |
+| `.reveal` | DS | Element that fades + rises in. Visible by default; hidden pre-reveal state applies only under `.motion-ready`. |
+| `.reveal.is-visible` | script | Toggle (e.g. via `IntersectionObserver`) to play the reveal. |
+| `.reveal-delay-1` / `-2` / `-3` | DS | Token-derived stagger delays for grouped reveals. |
+| `[data-parallax]` + `--parallax-offset` | DS / script | Drift a layer on scroll; the script sets the per-element `--parallax-offset` (px), rAF-throttled. |
+
+```html
+<!-- Reveal on scroll (script toggles .is-visible) -->
+<section class="reveal">…</section>
+<section class="reveal reveal-delay-1">…</section>
+
+<!-- Parallax layer (script sets --parallax-offset on scroll) -->
+<div data-parallax></div>
+```
+
+Under `prefers-reduced-motion: reduce`, all reveals render in their final visible
+state and parallax transforms are removed — even if `.motion-ready` is present.
 
 ---
 

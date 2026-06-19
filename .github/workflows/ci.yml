@@ -82,6 +82,17 @@ jobs:
           grep -q ':root' dist/styles.css || (echo "FAIL: no :root selector in dist (#104)" && exit 1)
           echo "Base tokens compiled to :root — verified (#104)"
 
+      - name: Verify component utilities compiled into dist — ds#115
+        run: |
+          # The interactive components express their structural contract as Tailwind
+          # utility classes. These must be compiled into the published dist so
+          # consumers get them without hand-mirroring via `@source inline(...)`.
+          grep -q '@layer utilities{' dist/styles.css || (echo "FAIL: utilities layer missing from dist (ds#115)" && exit 1)
+          grep -Fq '.fixed{' dist/styles.css || (echo "FAIL: Dialog overlay/content utilities not compiled into dist (ds#115)" && exit 1)
+          grep -Fq '.bg-background{background-color:var(--color-background)}' dist/styles.css \
+            || (echo "FAIL: DS-color utilities not wired to runtime tokens in dist (ds#115)" && exit 1)
+          echo "Component utilities compiled into dist — verified (ds#115)"
+
       - name: Verify exports field resolution
         run: node scripts/validate-package-exports.mjs
 

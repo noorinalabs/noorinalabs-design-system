@@ -10,4 +10,13 @@
 @import './utilities.css';
 @import './components.css';
 @import './animations.css';
+@import './motion.css';
 @import './states.css';
+
+/*
+ * Compiled component-utilities layer (ds#115): emits the Tailwind utility
+ * classes the interactive components rely on so consumers get them from
+ * dist/styles.css instead of hand-mirroring with `@source inline(...)`.
+ * Imported last so the utility layer is appended after the authored rules.
+ */
+@import './component-utilities.css';

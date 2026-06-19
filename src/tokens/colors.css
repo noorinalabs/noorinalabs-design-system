@@ -192,6 +192,7 @@
     --color-viz-categorical-9: oklch(0.72 0.14 345);
     --color-viz-categorical-10: oklch(0.68 0.15 15);
     --color-viz-accent: oklch(0.7 0.15 255);
+    color-scheme: dark;
   }
 }
 

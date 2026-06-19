@@ -17,7 +17,7 @@ let failures = 0
 let warnings = 0
 
 // Exports that are critical for consumers — failure here blocks CI
-const criticalExports = new Set(['.', './styles', './styles.css'])
+const criticalExports = new Set(['.', './icons', './icons/paths', './styles', './styles.css'])
 
 function check(label, filePath) {
   const full = resolve(root, filePath)
