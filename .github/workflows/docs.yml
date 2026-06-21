@@ -202,9 +202,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Drift-gate unit tests
+        # The gate's kind-classifier is the load-bearing logic — if it stops
+        # recognizing a kind (e.g. the `cspell` classification added for
+        # noorinalabs-main#684) the gate would silently pass on real drift. Run
+        # its stdlib-unittest suite so a regression in the classifier fails CI
+        # here rather than going unnoticed.
+        run: python3 -m unittest discover -s scripts/tests -v
       - name: Verify pre-commit config mirrors CI-enforced checks (#327)
         # Fails if a check CI enforces (eslint/prettier/typecheck/build/test/
-        # actionlint/gitleaks/…) is missing from .pre-commit-config.yaml, so
-        # local hooks can't silently drift behind CI. This is the
+        # cspell/actionlint/gitleaks/…) is missing from .pre-commit-config.yaml,
+        # so local hooks can't silently drift behind CI. This is the
         # machine-enforcement that keeps the #327 mirror from rotting.
         run: python3 scripts/pre_commit_ci_sync.py .
