@@ -112,6 +112,7 @@ PreToolUse
 PostToolUse
 jsonc
 frontmatter
+wikilinks
 repo
 repos
 canonicalized

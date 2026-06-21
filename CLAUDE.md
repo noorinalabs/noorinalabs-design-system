@@ -66,6 +66,20 @@ npm run check       # Run all checks (lint + typecheck + test)
 
 Copy `.env.example` to `.env` if needed. This package has minimal environment configuration as it is a library.
 
+## Project Memory
+
+Project memory is **version-controlled in this repo** at `.claude/memory/`, not in the user-space auto-memory directory. This makes the accumulated DS-specific state **transferable**: a developer who clones only `noorinalabs-design-system` gets the memory with it, with zero per-machine setup. The index below is auto-loaded into every session via this committed import:
+
+@.claude/memory/MEMORY.md
+
+`MEMORY.md` is the always-loaded index (one line per memory); the individual topic files in `.claude/memory/*.md` are read on demand when a line looks relevant.
+
+**Why not the auto-memory feature:** Claude Code's auto-memory lives under `~/.claude/...` — user-space, cwd-keyed (so it fragments across worktrees), and **not** git-shareable. A CLAUDE.md `@import` of committed files is the only zero-setup-on-pull mechanism, so memory travels with the branch.
+
+**Recording a memory:** create or edit `.claude/memory/<kebab-slug>.md` with the standard frontmatter (`name`, `description`, `metadata.type` = `user` | `feedback` | `project` | `reference`), add a one-line pointer to `MEMORY.md` (`- [Title](file.md) — hook`), and **commit it** so it travels with the branch. Link related memories with `[[other-slug]]`. Before adding, check for an existing file covering the same fact and update it instead of duplicating; delete memories that turn out to be wrong.
+
+> `.claude/memory/**` is excluded from the markdownlint/cspell/lychee linters (dense append-only note prose with names, SHAs, `[[wikilinks]]`, and Arabic — same call as `feedback_log.md`). The Stop-hook `session_handoff.md` is gitignored (per-session, machine-local churn). This mirrors the parent `noorinalabs-main` per-child-repo memory pattern (meta-issue #740): each repo commits its own `.claude/memory/` + `@import` in its own CLAUDE.md — repos do not import across directories.
+
 ## Team Workflow
 
 > **Cross-repo session-team note:** The team structure described below is the **per-repo team** — operative when a session is opened isolated in this repo for repo-only work.
