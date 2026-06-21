@@ -51,6 +51,32 @@ repos:
         args: ["-ignore", "constant expression \"false\" in condition"]
         stages: [pre-commit]
 
+  # --- Spellcheck (commit stage) — mirrors docs.yml `spellcheck` cspell job ---
+  # A typo in authored prose should fail at commit time, not only surface as a
+  # CI red after push (rollout of noorinalabs-main#684). Pinned to v8.4.0 of
+  # cspell-cli to match the exact cspell the
+  # `streetsidesoftware/cspell-action@…v8.4.0` CI step bundles — same engine +
+  # dictionaries on both sides, so a word that passes locally passes in CI and
+  # vice-versa. `language: node`, so pre-commit provisions its own node/cspell
+  # env (no system cspell required).
+  #
+  # `files` is the regex equivalent of the CI action's authored-prose glob set
+  # (CLAUDE.md, README.md, RUNBOOK.md, docs, skills, charter); `--config
+  # .cspell.json` reuses the same dictionaries + ignore rules CI loads. New
+  # domain terms go in .cspell/project-words.txt — never bless a wrong spelling.
+  #
+  # NOTE: this repo's sync-drift gate (scripts/pre_commit_ci_sync.py) does NOT
+  # yet classify a `cspell` kind, so it cannot enforce this mirror — closing
+  # that blind spot is the org-wide follow-up tracked under noorinalabs-main#684.
+  - repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v8.4.0
+    hooks:
+      - id: cspell
+        name: cspell
+        args: ["--no-must-find-files", "--no-progress", "--no-summary", "--config", ".cspell.json"]
+        files: ^(CLAUDE\.md|README\.md|RUNBOOK\.md|docs/.*\.md|\.claude/skills/.*\.md|\.claude/team/charter\.md)$
+        stages: [pre-commit]
+
   # --- Local hooks ---
   - repo: local
     hooks:
