@@ -53,3 +53,6 @@ temp/
 
 .claude/.consulted/
 .claude/.librarian-consulted/
+
+# Per-session, machine-local handoff (Stop hook) — never committed
+.claude/memory/session_handoff.md

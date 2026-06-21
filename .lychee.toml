@@ -33,6 +33,10 @@ exclude_path = [
   "dist",
   "storybook-static",
   ".claude/worktrees",
+  # Project memory is dense append-only note prose ([[wikilinks]] that are not
+  # markdown links, SHAs, intentionally-dangling cross-repo refs) — excluded
+  # from the link gate, same call as the markdownlint/cspell exclusions (#740).
+  ".claude/memory",
 ]
 
 # A relative link with no matching file is the failure we DO want to surface.

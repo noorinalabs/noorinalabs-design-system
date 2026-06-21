@@ -51,6 +51,7 @@
     "node_modules/**",
     "dist/**",
     "storybook-static/**",
-    ".claude/worktrees/**"
+    ".claude/worktrees/**",
+    ".claude/memory/**"
   ]
 }
