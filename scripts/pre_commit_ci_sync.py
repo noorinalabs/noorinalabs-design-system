@@ -72,6 +72,12 @@ _KIND_PATTERNS: dict[str, tuple[str, ...]] = {
     # mirror, and new domain vocabulary failed only after push. Patterns cover the
     # action ref, the bundled-CLI step name, and the generic job/step word.
     "cspell": ("cspell", "spellcheck", "streetsidesoftware/cspell"),
+    # `structural-ontology` (#130): the C×T2 per-repo structural index staleness
+    # gate. Both the pre-commit hook (id: structural-ontology-staleness, entry:
+    # python3 scripts/structural_ontology.py check) and the CI workflow
+    # (structural-ontology.yml, run: python3 scripts/structural_ontology.py check)
+    # are classified by the same patterns so the sync-gate demands the local mirror.
+    "structural-ontology": ("structural-ontology", "structural_ontology"),
 }
 
 # `ruff-lint` is a substring of nothing problematic, but `ruff format` also
