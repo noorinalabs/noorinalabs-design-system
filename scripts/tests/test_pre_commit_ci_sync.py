@@ -3,10 +3,12 @@
 Verifies:
   1. The `cspell` kind is classified on both sides so the Spellcheck job's
      local⇄CI mirror is ENFORCED, not silently ignored (noorinalabs-main#684).
-  2. The drift direction that gates: CI-enforced-but-not-local is harmful;
+  2. The `structural-ontology` kind is classified on both sides so the C×T2
+     staleness gate's local⇄CI mirror is enforced (#130).
+  3. The drift direction that gates: CI-enforced-but-not-local is harmful;
      local-but-not-CI is stricter-local (informational, never a gate fail).
-  3. This repo's real config mirrors its CI kinds (no harmful drift), with
-     cspell present on both sides.
+  4. This repo's real config mirrors its CI kinds (no harmful drift), with
+     cspell and structural-ontology present on both sides.
 
 Run: `python3 -m unittest discover -s scripts/tests` (stdlib only, no deps).
 """
@@ -111,9 +113,83 @@ repos:
         self.assertNotIn("cspell", harmful)
 
 
+class StructuralOntologyKindClassification(unittest.TestCase):
+    """#130 (C×T2 design-system wiring): the structural-ontology staleness gate
+    must classify on both CI and pre-commit sides so the local mirror is enforced
+    by the sync-drift gate, not silently ignored."""
+
+    def test_ci_workflow_name_classified(self) -> None:
+        wf = """
+name: structural-ontology
+on:
+  pull_request: {}
+jobs:
+  staleness-check:
+    steps:
+      - run: python3 scripts/structural_ontology.py check --gen-lib _main/.claude/lib --require-generator
+"""
+        self.assertIn("structural-ontology", kinds_from_ci(wf))
+
+    def test_ci_run_step_classified(self) -> None:
+        wf = """
+jobs:
+  check:
+    steps:
+      - run: python3 scripts/structural_ontology.py check --require-generator
+"""
+        self.assertIn("structural-ontology", kinds_from_ci(wf))
+
+    def test_precommit_hook_id_classified(self) -> None:
+        cfg = """
+repos:
+  - repo: local
+    hooks:
+      - id: structural-ontology-staleness
+        name: structural-ontology-staleness
+        entry: python3 scripts/structural_ontology.py check
+        language: system
+"""
+        self.assertIn("structural-ontology", kinds_from_precommit(cfg))
+
+    def test_ci_without_precommit_is_harmful_drift(self) -> None:
+        wf = """
+name: structural-ontology
+jobs:
+  staleness-check:
+    steps:
+      - run: python3 scripts/structural_ontology.py check --require-generator
+"""
+        cfg = """
+repos:
+  - repo: local
+    hooks:
+      - id: eslint
+"""
+        harmful, _ = compute_drift(kinds_from_precommit(cfg), kinds_from_ci(wf))
+        self.assertIn("structural-ontology", harmful)
+
+    def test_both_sides_no_drift(self) -> None:
+        wf = """
+name: structural-ontology
+jobs:
+  staleness-check:
+    steps:
+      - run: python3 scripts/structural_ontology.py check --require-generator
+"""
+        cfg = """
+repos:
+  - repo: local
+    hooks:
+      - id: structural-ontology-staleness
+        entry: python3 scripts/structural_ontology.py check
+"""
+        harmful, _ = compute_drift(kinds_from_precommit(cfg), kinds_from_ci(wf))
+        self.assertNotIn("structural-ontology", harmful)
+
+
 class RealRepoConfig(unittest.TestCase):
     """The actual committed config in THIS repo must have no harmful drift, and
-    cspell must be enforced on both sides (the parity this PR delivers)."""
+    cspell + structural-ontology must be enforced on both sides."""
 
     def _wf_paths(self) -> list[Path]:
         return sorted((_REPO_ROOT / ".github" / "workflows").glob("*.y*ml"))
@@ -128,6 +204,12 @@ class RealRepoConfig(unittest.TestCase):
         ci_text = "\n".join(p.read_text(encoding="utf-8") for p in self._wf_paths())
         self.assertIn("cspell", kinds_from_precommit(precommit_text))
         self.assertIn("cspell", kinds_from_ci(ci_text))
+
+    def test_repo_enforces_structural_ontology_both_sides(self) -> None:
+        precommit_text = (_REPO_ROOT / ".pre-commit-config.yaml").read_text(encoding="utf-8")
+        ci_text = "\n".join(p.read_text(encoding="utf-8") for p in self._wf_paths())
+        self.assertIn("structural-ontology", kinds_from_precommit(precommit_text))
+        self.assertIn("structural-ontology", kinds_from_ci(ci_text))
 
 
 if __name__ == "__main__":
